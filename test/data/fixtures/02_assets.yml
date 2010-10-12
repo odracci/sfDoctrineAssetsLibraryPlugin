@@ -1,0 +1,33 @@
+sfAsset:
+  asset1:
+    folder_id:   media
+    filename:    asset1
+    description: asset1.png
+    type:        image
+    filesize:    1
+    created_at:  '<?php echo strtotime('-1 day') ?>'
+  asset2:
+    folder_id:   media
+    filename:    asset2
+    description: asset2.png
+    type:        image
+    filesize:    1
+    created_at:  '<?php echo strtotime('-3 hours') ?>'
+  asset3:
+    folder_id:   media
+    filename:    asset3
+    description: asset3.png
+    type:        image
+    filesize:    1
+  sub1asset1:
+    folder_id:   subdir1
+    filename:    asset1
+    description: asset1.png
+    type:        image
+    filesize:    1
+  sub2asset1:
+    folder_id:   subdir2
+    filename:    asset1
+    description: asset1.png
+    type:        image
+    filesize:    1
