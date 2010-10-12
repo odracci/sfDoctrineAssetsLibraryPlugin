@@ -46,7 +46,7 @@ abstract class PluginsfAsset extends BasesfAsset
       $this->setFilename(time() . $this->getFilename());
     }
 
-    $this->setFilesize((int) filesize($assetPath) / 1024);
+    $this->setFilesize((int) (filesize($assetPath) / 1024));
     $this->autoSetType();
     if (sfConfig::get('app_sfAssetsLibrary_check_type', false) && !in_array($this->getType(), sfConfig::get('app_sfAssetsLibrary_types', array('image', 'txt', 'archive', 'pdf', 'xls', 'doc', 'ppt'))))
     {
@@ -172,5 +172,85 @@ abstract class PluginsfAsset extends BasesfAsset
     return ($this->isImage() || $this->isPdf()) && class_exists('sfThumbnail');
   }
     
+  /**
+   * @return array
+   */
+  public function getFilepaths()
+  {
+    $filepaths = array('full' => $this->getFullPath());
+    if ($this->isImage() && $this->supportsThumbnails())
+    {
+      // Add path to the thumbnails
+      foreach (sfConfig::get('app_sfAssetsLibrary_thumbnails', array(
+        'small' => array('width' => 84, 'height' => 84, 'shave' => true),
+        'large' => array('width' => 194, 'height' => 152)
+        )) as $key => $params)
+      {
+        $filepaths[$key] = $this->getFullPath($key);
+      }
+    }
+
+    return $filepaths;
+  }
+  
+  /**
+   * Change asset directory and/or name
+   *
+   * @param sfAssetFolder $newFolder
+   * @param string        $newFilename
+   */
+  public function move(sfAssetFolder $newFolder, $newFilename = null)
+  {
+    if (sfAssetTable::getInstance()->exists($newFolder->getId(), $newFilename ? $newFilename : $this->getFilename()))
+    {
+      throw new sfAssetException('The target folder "%folder%" already contains an asset named "%name%". The asset has not been moved.', array('%folder%' => $newFolder->getName(), '%name%' => $newFilename ? $newFilename : $this->getFilename()));
+    }
+    $oldFilepaths = $this->getFilepaths();
+    if ($newFilename)
+    {
+      if (sfAssetsLibraryTools::sanitizeName($newFilename) != $newFilename)
+      {
+        throw new sfAssetException('The filename "%name%" contains incorrect characters. The asset has not be altered.', array('%name%' => $newFilename));
+      }
+      $this->setFilename($newFilename);
+    }
+    $this->setFolder($newFolder);
+    $success = true;
+    foreach ($oldFilepaths as $type => $filepath)
+    {
+      $success = rename($filepath, $this->getFullPath($type)) && $success;
+    }
+    if (!$success)
+    {
+      throw new sfAssetException('Some or all of the file operations failed. It is possible that the moved asset or its thumbnails are missing.');
+    }
+  }
+  
+  /**
+   * Physically remove assets
+   * @return boolean
+   */
+  public function destroy()
+  {
+    $success = true;
+    foreach ($this->getFilepaths() as $filepath)
+    {
+      $success = unlink($filepath) && $success;
+    }
+
+    return $success;
+  }
+
+  /**
+   * @param  PropelPDO $con
+   * @return boolean
+   */
+  public function delete(Doctrine_Connection $con = null)
+  {
+    $success = $this->destroy();
+    parent::delete($con);
+
+    return $success;
+  }
   
 }
