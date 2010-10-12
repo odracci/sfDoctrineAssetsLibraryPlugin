@@ -31,4 +31,22 @@ class PluginsfAssetTable extends Doctrine_Table
 
     return $query->count() > 0 ? true : false;
   }
+  
+  /**
+   * Retrieves a sfAsset object from a relative URL like
+   *    /medias/foo/bar.jpg
+   * i.e. the kind of URL returned by $sf_asset->getUrl()
+   */
+  public  function retrieveFromUrl($url)
+  {
+    $url = sfAssetFolderTable::getInstance()->cleanPath($url, '/');
+    list($relPath, $filename) = sfAssetsLibraryTools::splitPath($url, '/');
+    $query = $this->createQuery('a')
+      ->where('filename = ?', $filename)
+      ->leftJoin('a.Folder f')
+      ->andWhere('f.relative_path = ?', $relPath ?  $relPath : null)
+      ;
+    return $query->fetchOne();
+  }
+  
 }
