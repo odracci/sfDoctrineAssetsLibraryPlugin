@@ -12,6 +12,9 @@
  */
 abstract class PluginsfAssetFolder extends BasesfAssetFolder
 {
+  public function __toString() {
+    return $this->getRelativePath();
+  }
   /**
    * @return string
    */
@@ -35,12 +38,18 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
      */
     public function save(Doctrine_Connection $con = null)
     {
+      $this->updateRelitevePath();
+      return parent::save($con);
+    }
+
+    protected function updateRelitevePath() {
       $modified = $this->getModified();
       if (!array_key_exists('relative_path', $modified))
       {
-        if ($parent = $this->getNode()->getParent())
+        if ($this->getNode()->hasParent())
         {
-          $this->setRelativePath($parent->getRelativePath().'/'.$this->getName());
+          $this->setRelativePath($this->getParent()->getRelativePath().'/'.$this->getName());
+          
         }
         else
         {
@@ -55,18 +64,7 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
           throw new sfAssetException('Impossible to create folder "%name%"', array('%name%' => $this->getRelativePath()));
         }
       }
-  
-      return parent::save($con);
     }
-
-//    /**
-//     * @param  PropelPDO     $con
-//     * @return sfAssetFolder
-//     */
-//    public function retrieveParentIgnoringPooling()
-//    {
-//      return $this->getNode()->getParent();
-//    }
     
     /**
      * Folder physically exists
@@ -166,9 +164,10 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
       // move its assets
       self::movePhysically($old_path, $this->getFullPath());
 
-      foreach ($descendants as $descendant)
+//      foreach ($descendants as $descendant)
+      foreach ($this->getNode()->getDescendants() as $descendant)
       {
-        // Update relative path
+        // Update relative path $descendant->getNode()->getDescendants() $descendant->getRelativePath()
         $descendant->save();
       }
     }
@@ -194,16 +193,4 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
     }
     return false;
   }
-  
-  /**
-   * Gets ancestor for the given node if it exists
-   *
-   * @param      PropelPDO $con Connection to use.
-   * @return     mixed    Propel object if exists else false
-   */
-  public function retrieveParent()
-  {
-    return $this->getParent()->getNode();
-  }
-
 }

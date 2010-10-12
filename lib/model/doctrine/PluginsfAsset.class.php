@@ -12,6 +12,9 @@
  */
 abstract class PluginsfAsset extends BasesfAsset
 {
+  public function __toString() {
+    return $this->getFilename();
+  }
   /**
    * Physically creates asset
    *
@@ -31,35 +34,36 @@ abstract class PluginsfAsset extends BasesfAsset
       list(, $filename) = sfAssetsLibraryTools::splitPath($assetPath);
       $this->setFilename($filename);
     }
-//
-//    // check folder
-//    if (!$this->getFolder()->existsPhysical())
-//    {
-//      $this->getFolder()->create();
-//    }
-//    // check if a file with this name already exists
-//    elseif ($checkDuplicate && sfAssetTable::getInstance()->exists($this->getFolder()->getId(), $this->getFilename()))
-//    {
-//      $this->setFilename(time() . $this->getFilename());
-//    }
-//
-//    $this->setFilesize((int) filesize($assetPath) / 1024);
-//    $this->autoSetType();
-//    if (sfConfig::get('app_sfAssetsLibrary_check_type', false) && !in_array($this->getType(), sfConfig::get('app_sfAssetsLibrary_types', array('image', 'txt', 'archive', 'pdf', 'xls', 'doc', 'ppt'))))
-//    {
-//      throw new sfAssetException('Filetype "%type%" not allowed', array('%type%' => $this->getType()));
-//    }
-//
-//    $ok = $move ? @rename($assetPath, $this->getFullPath()) : @copy($assetPath, $this->getFullPath());
-//    if (!$ok)
-//    {
-//      throw new sfAssetException('A problem occurred during while saving "%file%"', array('%file%' =>  $this->getFullPath()));
-//    }
-//
-//    if ($this->supportsThumbnails())
-//    {
-//      sfAssetsLibraryTools::createThumbnails($this->getFolderPath(), $this->getFilename(), $this->isPdf());
-//    }
+
+    // check folder
+    if (!$this->getFolder()->existsPhysical())
+    {
+      $this->getFolder()->create();
+    }
+    // check if a file with this name already exists
+    elseif ($checkDuplicate && sfAssetTable::getInstance()->exists($this->getFolder()->getId(), $this->filename))
+    {
+      $this->setFilename(time() . $this->getFilename());
+    }
+
+    $this->setFilesize((int) filesize($assetPath) / 1024);
+    $this->autoSetType();
+    if (sfConfig::get('app_sfAssetsLibrary_check_type', false) && !in_array($this->getType(), sfConfig::get('app_sfAssetsLibrary_types', array('image', 'txt', 'archive', 'pdf', 'xls', 'doc', 'ppt'))))
+    {
+      throw new sfAssetException('Filetype "%type%" not allowed', array('%type%' => $this->getType()));
+    }
+
+    $ok = $move ? @rename($assetPath, $this->getFullPath()) : @copy($assetPath, $this->getFullPath());
+    if (!$ok)
+    {
+//      throw new sfAssetException(sprintf('A problem occurred during while saving "%s", "%s"', $this->getFullPath(), $this->filename));
+      throw new sfAssetException('A problem occurred during while saving "%file%"', array('%file%' =>  $this->getFullPath()));
+    }
+
+    if ($this->supportsThumbnails())
+    {
+      sfAssetsLibraryTools::createThumbnails($this->getFolderPath(), $this->getFilename(), $this->isPdf());
+    }
   }
   
   /**
@@ -95,7 +99,7 @@ abstract class PluginsfAsset extends BasesfAsset
    */
   public function getFullPath($thumbnail_type = 'full')
   {
-    return sfAssetsLibraryTools::getThumbnailPath($this->getFolderPath(), $this->getFilename(), $thumbnail_type);
+    return sfAssetsLibraryTools::getThumbnailPath($this->getFolderPath(), $this->filename, $thumbnail_type);
   }
   
   public function setFilename($filename)

@@ -32,7 +32,7 @@ try
   $sfAssetFolder->getNode()->insertAsFirstChildOf($root);
   $sfAssetFolder->save();
   $t->is($sfAssetFolder->getName(), 'Test_Directory', 'getName() returns the folder name');
-
+  
   $t->diag('sfAssetFolder::getRelativePath()');
   $t->is($sfAssetFolder->getRelativePath(), $root->getRelativePath() . '/' . $sfAssetFolder->getName(), 'getRelativePath() returns the folder relative path, including its own name');
 
@@ -43,7 +43,7 @@ try
   $sfAssetFolder2->save();
   $t->is($sfAssetFolder2->getRelativePath(), $sfAssetFolder->getRelativePath() . '/' . $sfAssetFolder2->getName(), 'getRelativePath() returns the folder relative path, including its parent name');
   $id2 = $sfAssetFolder2->getId();
-
+  
   # $sfAssetFolder3 is /root/Test_Directory/Test_Sub-directory/Test_Sub-sub-directory
   $sfAssetFolder3 = new sfAssetFolder();
   $sfAssetFolder3->getNode()->insertAsFirstChildOf($sfAssetFolder2);
@@ -51,7 +51,7 @@ try
   $sfAssetFolder3->save();
   $t->is($sfAssetFolder3->getRelativePath(), $sfAssetFolder2->getRelativePath() . '/' . $sfAssetFolder3->getName(), 'getRelativePath() returns the folder relative path, including its ancestors names');
   $id3 = $sfAssetFolder3->getId();
-
+  
   # $sfAsset is /root/Test_Directory/Test_Sub-directory/raikkonen.jpg
   $assets_path = dirname(__FILE__).'/../assets/';
   $test_asset = $assets_path . 'raikkonen.jpg';
@@ -60,7 +60,7 @@ try
   $sfAsset->create($test_asset, false);
   $sfAsset->save();
   $sf_asset_id = $sfAsset->getId();
-
+  
   # $sfAsset2 is /root/Test_Directory/Test_Sub-directory/Test_Sub-sub-directory/toto
   $sfAsset2 = new sfAsset();
   $sfAsset2->setFolder($sfAssetFolder3);
@@ -69,6 +69,9 @@ try
   $sfAsset2->save();
   $sf_asset2_id = $sfAsset2->getId();
 
+  // TODO: it dosen't work w/o
+  Doctrine_Core::getTable('sfAssetFolder')->getTree()->fetchTree();
+  
   # So now we have:
   # root/
   #   Test_Directory/               sfAssetFolder
@@ -92,16 +95,16 @@ try
   #     raikkonen.jpg
 
   // Bug in Propel instance pooling + NestedSets...
-//  sfAssetFolderPeer::clearInstancePool();
+//  sfAssetFolderPeer::clearInstancePool(); clear()
   $root = sfAssetFolderTable::getInstance()->find($rootId);
   $sfAssetFolder2 = sfAssetFolderTable::getInstance()->find($id2);
   $sfAssetFolder3 = sfAssetFolderTable::getInstance()->find($id3);
 
   $t->is($sfAssetFolder2->getParent()->getId(), $root->getId(), 'move() gives the correct parent');
-  $t->is($sfAssetFolder3->getParent()->getId(), $root->getId(), 'move() also moves children');
+  $t->is($sfAssetFolder3->getParent()->getParent()->getId(), $root->getId(), 'move() also moves children');
   $t->is($sfAssetFolder2->getRelativePath(), $root->getRelativePath() . '/' . $sfAssetFolder2->getName(), 'move() changes descendants relative paths');
   $t->is($sfAssetFolder3->getRelativePath(), $sfAssetFolder2->getRelativePath() . '/' . $sfAssetFolder3->getName(), 'move() changes descendants relative paths');
-
+  
 //  sfAssetPeer::clearInstancePool();
   $sfAsset = sfAssetTable::getInstance()->find($sf_asset_id);
   $sfAsset2 = sfAssetTable::getInstance()->find($sf_asset2_id);
@@ -110,17 +113,19 @@ try
 }
 catch (Exception $e)
 {
-  echo $e->getMessage() . PHP_EOL;
+  echo 'errore: ' . $e->getMessage() . PHP_EOL;
+  echo $e->getTraceAsString() . PHP_EOL;
 }
 
 // reset DB
 $con->rollBack();
 
-function debugTree($root)
+function debugTree()
 {
-  echo $root->getName() , ' ', $root->getTreeLeft(), '/', $root->getTreeRight(), "\n";
-  foreach ($root->getNode()->getDescendants() as $folder)
-  {
-    echo str_repeat('  ', $folder->getLevel()) , $folder->getName() , ' ', $folder->getTreeLeft(), '/', $folder->getTreeRight(), "\n";
-  }
+  $treeObject = Doctrine_Core::getTable('sfAssetFolder')->getTree()->fetchTree();
+  $tree = $treeObject->fetchTree();
+//  
+//  foreach ($tree as $folder) {
+//      echo str_repeat('    ', $folder->getLevel()) . $folder->getName() . "\n";
+//  }
 }
