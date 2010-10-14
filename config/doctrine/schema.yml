@@ -24,4 +24,4 @@ sfAsset:
       fields: [ folder_id, filename ]
       type: unique
   relations:
-    Folder:      { onDelete: CASCADE, local: folder_id, foreignAlias: sfAssetFolder, class: sfAssetFolder }
+    Folder:      { onDelete: CASCADE, local: folder_id, foreignAlias: Assets, class: sfAssetFolder }

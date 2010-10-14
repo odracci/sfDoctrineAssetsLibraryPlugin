@@ -8,16 +8,6 @@
 class PluginsfAssetFolderTable extends Doctrine_Table
 {
     /**
-     * Returns an instance of this class.
-     *
-     * @return object PluginsfAssetFolderTable
-     */
-//    public static function getInstance()
-//    {
-//        return Doctrine_Core::getTable('PluginsfAssetFolder');
-//    }
-    
-    /**
      * Retrieves folder by relative path
      *
      * @param string $path

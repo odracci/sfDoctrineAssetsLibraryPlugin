@@ -115,10 +115,12 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
   public function delete(Doctrine_connection $con = null, $force = false)
   {
     $success = true;
-
-    foreach ($this->getDescendants() as $descendant)
-    {
-      $success = $descendant->delete($con, $force) && $success;
+    $descendants = $this->getNode()->getDescendants();
+    if ($descendants !== false) {
+      foreach ($descendants as $descendant)
+      {
+        $success = $descendant->delete($con, $force) && $success;
+      }
     }
 
     foreach ($this->getAssets() as $asset)
@@ -202,7 +204,7 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
     }
     else if ($this->getParent() !== $new_parent->getId())
     {
-      $descendants = $this->getNode()->getDescendants();
+//      $descendants = $this->getNode()->getDescendants();
       $old_path = $this->getFullPath();
 
       $this->getNode()->moveAsLastChildOf($new_parent);
@@ -212,10 +214,13 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
       // move its assets
       self::movePhysically($old_path, $this->getFullPath());
 
-      foreach ($this->getNode()->getDescendants() as $descendant)
-      {
-        // Update relative path $descendant->getNode()->getDescendants() $descendant->getRelativePath()
-        $descendant->save();
+      $descendants = $this->getNode()->getDescendants();
+      if ($descendants !== false) {
+        foreach ($descendants as $descendant)
+        {
+          // Update relative path $descendant->getNode()->getDescendants() $descendant->getRelativePath()
+          $descendant->save();
+        }
       }
     }
     // else: nothing to do
@@ -228,7 +233,7 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
    */
   public function rename($name)
   {
-    if ($this->retrieveParent()->hasSubFolder($name))
+    if ($this->getParent()->hasSubFolder($name))
     {
       throw new sfAssetException('The parent folder already contains a folder named "%name%". The folder has not been renamed.', array('%name%' => $name));
     }
@@ -244,10 +249,12 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
 
       // move its assets
       self::movePhysically($old_path, $this->getFullPath());
-
-      foreach ($this->getDescendants() as $descendant)
-      {
-        $descendant->save();
+      $descendants = $this->getNode()->getDescendants();
+      if ($descendants !== false) {
+        foreach ($this->getNode()->getDescendants() as $descendant)
+        {
+          $descendant->save();
+        }
       }
     }
     // else: nothing to do

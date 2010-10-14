@@ -7,7 +7,7 @@
  * @subpackage form
  * @author     Massimiliano Arione <garakkio@gmail.com>
  */
-class sfAssetsForm extends PluginsfAssetForm
+class sfAssetsForm extends BasesfAssetForm
 {
   public $assets = array();
 

@@ -17,8 +17,7 @@
       <?php echo link_to(__('Rename', null, 'sfAsset'), '@sf_asset_library_edit?id=' . $sf_asset->getId(), array('class' => 'toggle', 'rel' => '{ div: \'input_new_name\'}')) ?>
     </label>
     <div class="content" id="input_new_name" style="display:none">
-      $renameform['filename']
-      <?php //echo $renameform['filename'] ?>
+      <?php echo $renameform['filename'] ?>
       <input type="submit" value="<?php echo __('Rename', null, 'sfAsset') ?>" />
     </div>
   </div>

@@ -7,7 +7,7 @@
  * @subpackage form
  * @author     Massimiliano Arione <garakkio@gmail.com>
  */
-class sfAssetMoveForm extends PluginsfAssetForm
+class sfAssetMoveForm extends BasesfAssetForm
 {
   public function configure()
   {

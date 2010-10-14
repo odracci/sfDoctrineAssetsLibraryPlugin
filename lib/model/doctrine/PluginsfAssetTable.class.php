@@ -81,38 +81,31 @@ class PluginsfAssetTable extends Doctrine_Table
         $query->andWhere('f.rgt <= ?', $folder->getNode()->getRightValue());
       }
     }
-    if (isset($params['filename']['is_empty']))
-    {
-      $query->andWhere('filename = \'\' or filename is null', null);
-//      $criterion = $c->getNewCriterion(self::FILENAME, '');
-//      $criterion->addOr($c->getNewCriterion(self::FILENAME, null, Criteria::ISNULL));
-//      $c->add($criterion);
-    }
-    elseif (isset($params['filename']['text']) && !strlen($params['filename']['text']))
+//    if (isset($params['filename']['is_empty']))
+//    {
+//      $query->andWhere('filename = \'\' or filename is null', null);
+////      $criterion = $c->getNewCriterion(self::FILENAME, '');
+////      $criterion->addOr($c->getNewCriterion(self::FILENAME, null, Criteria::ISNULL));
+////      $c->add($criterion);
+//    }
+//    else
+    if (isset($params['filename']['text']) && strlen($params['filename']['text']))
     {
       $query->andWhere('filename like ?', '%' . trim($params['filename']['text'], '*%') . '%');
-//      $c->add(self::FILENAME, '%' . trim($params['filename']['text'], '*%') . '%', Criteria::LIKE);
     }
     if (isset($params['author']['is_empty']))
     {
       $query->andWhere('author = \'\' or author is null');
-//      $criterion = $c->getNewCriterion(self::AUTHOR, '');
-//      $criterion->addOr($c->getNewCriterion(self::AUTHOR, null, Criteria::ISNULL));
-//      $c->add($criterion);
     }
-    elseif (isset($params['author']['text']) && $params['author']['text'] !== '')
+    elseif (isset($params['author']['text']) && strlen($params['author']['text']))
     {
       $query->andWhere('author like ?', '%' . trim($params['author']['text'], '*%') . '%');
-//      $c->add(self::AUTHOR, '%' . trim($params['author']['text'], '*%') . '%', Criteria::LIKE);
     }
     if (isset($params['copyright']['is_empty']))
     {
       $query->andWhere('copyright = \'\' or copyright is null');
-//      $criterion = $c->getNewCriterion(self::COPYRIGHT, '');
-//      $criterion->addOr($c->getNewCriterion(self::COPYRIGHT, null, Criteria::ISNULL));
-//      $c->add($criterion);
     }
-    elseif (isset($params['copyright']['text']) && $params['copyright']['text'] !== '')
+    elseif (isset($params['copyright']['text']) && strlen($params['copyright']['text']))
     {
       $query->andWhere('copyright like ?', '%' . trim($params['copyright']['text'], '*%') . '%');
       $c->add(self::COPYRIGHT, '%' . trim($params['copyright']['text'], '*%') . '%', Criteria::LIKE);
