@@ -1,23 +1,35 @@
 <?php
-
-include dirname(__FILE__).'/../../../../test/bootstrap/functional.php';
+include dirname(__FILE__).'/../bootstrap/functional.php';
 
 $subdir1 = sfAssetFolderTable::getInstance()->retrieveByPath('TESTsubdir1', '/');
 $subdir2 = sfAssetFolderTable::getInstance()->retrieveByPath('TESTsubdir2', '/');
+
+
+if (!$subdir1) {
+  include dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
+  $t = new lime_test(1, array('options' => new lime_output_color(), 'error_reporting' => true));
+  $t->fail('subdir1 doesn\'t exist.');
+  exit();
+}
+if (!$subdir2) {
+  include dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
+  $t = new lime_test(1, array('options' => new lime_output_color(), 'error_reporting' => true));
+  $t->fail('subdir2 doesn\'t exist.');
+  exit();
+}
 
 $browser = new sfTestFunctional(new sfBrowser());
 
 $browser->setTester('doctrine', 'sfTesterDoctrine');
 
 $browser->
-
   info('assets list')->
   get('/sfAsset/dir/media')->
     with('request')->begin()->
     isParameter('module', 'sfAsset')->
     isParameter('action', 'list')->
   end()->
-  with('response')->begin()->debug()->
+  with('response')->begin()->
     isStatusCode(200)->
     checkElement('div#sf_asset_bar p:first-child', '/media/')->
     checkElement('div#sf_asset_bar p:nth-child(2)', '/2 subfolders/')->
@@ -134,8 +146,8 @@ $browser->
   )))->
   with('form')->hasErrors(false)->
   with('doctrine')->check('sfAssetFolder', array(
-    'tree_left'     => 3,
-    'tree_right'    => 4,
+    'lft'     => 3,
+    'rgt'    => 4,
     'name'          => 'foobar',
     'relative_path' => 'media/TESTsubdir1/foobar',
   ))->
@@ -147,8 +159,8 @@ $browser->
   )))->
   with('form')->hasErrors(false)->
   with('doctrine')->check('sfAssetFolder', array(
-    'tree_left'     => 3,
-    'tree_right'    => 4,
+    'lft'     => 3,
+    'rgt'    => 4,
     'name'          => 'barfoo',
     'relative_path' => 'media/TESTsubdir1/barfoo',
   ))->
@@ -161,8 +173,8 @@ $browser->
     isParameter('action', 'deleteFolder')->
   end()->
   with('doctrine')->check('sfAssetFolder', array(
-    'tree_left'     => 3,
-    'tree_right'    => 4,
+    'lft'     => 3,
+    'rgt'    => 4,
     'name'          => 'barfoo',
     'relative_path' => 'media/TESTsubdir1/barfoo',
   ), false)->
@@ -181,8 +193,8 @@ $browser->
     isParameter('action', 'moveFolder')->
   end()->
   with('doctrine')->check('sfAssetFolder', array(
-    'tree_left'     => 3,
-    'tree_right'    => 4,
+    'lft'     => 3,
+    'rgt'    => 4,
     'name'          => 'TESTsubdir1',
     'relative_path' => 'media/TESTsubdir2/TESTsubdir1',
   ))->

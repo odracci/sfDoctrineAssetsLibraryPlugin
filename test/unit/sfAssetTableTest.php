@@ -12,7 +12,7 @@ try
   // prepare test environment
   sfAssetFolderTable::getInstance()->createQuery()->delete()->execute();
   sfAssetTable::getInstance()->createQuery()->delete()->execute();
-  sfConfig::set('app_sfAssetsLibrary_upload_dir', 'mediaTEST');
+//  sfConfig::set('app_sfAssetsLibrary_upload_dir', 'mediaTEST');
   $f = new sfAssetFolder();
   $f->setName(sfConfig::get('app_sfAssetsLibrary_upload_dir'));
   $tree = sfAssetFolderTable::getInstance()->getTree();

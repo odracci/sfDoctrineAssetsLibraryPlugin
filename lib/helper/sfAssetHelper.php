@@ -199,7 +199,7 @@ function assets_library_breadcrumb($path, $linkLast = false, $action = '')
  */
 function input_sf_asset_image_tag($name, $value = null, $options = array())
 {
-  $url = str_replace('&', '&amp;', url_for('@sf_asset_library_list?dir=' . sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media') . '&popup=2'));
+  $url = str_replace('&', '&amp;', url_for('@sf_asset_library_list?dir=' . sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets') . '&popup=2'));
   $asset = empty($value) ? new sfAsset : sfAssetTable::getInstance()->find($value);
   
   return '<a id="sf_asset_input_image" href="#" rel="{url: \'' . $url . '\', name: \'' . $name . '\', type: \'' . $options['type'] . '\'}">' .

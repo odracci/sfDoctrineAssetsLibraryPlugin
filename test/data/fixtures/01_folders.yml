@@ -1,16 +1,27 @@
 sfAssetFolder:
   media:
-    lft:     1
-    rgt:    6
     name:          media
     relative_path: media
-  subdir1:
-    lft:     2
-    rgt:    3
-    name:          TESTsubdir1
-    relative_path: media/TESTsubdir1
-  subdir2:
-    lft:     4
-    rgt:    5
-    name:          TESTsubdir2
-    relative_path: media/TESTsubdir2
+    children:
+      subdir1:
+        name:          TESTsubdir1
+        relative_path: media/TESTsubdir1
+      subdir2:
+        name:          TESTsubdir2
+        relative_path: media/TESTsubdir2
+    
+#  media:
+#    lft:     1
+#    rgt:    6
+#    name:          media
+#    relative_path: media
+#  subdir1:
+#    lft:     2
+#    rgt:    3
+#    name:          TESTsubdir1
+#    relative_path: media/TESTsubdir1
+#  subdir2:
+#    lft:     4
+#    rgt:    5
+#    name:          TESTsubdir2
+#    relative_path: media/TESTsubdir2

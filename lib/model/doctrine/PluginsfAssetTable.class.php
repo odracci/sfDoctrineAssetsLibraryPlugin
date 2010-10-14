@@ -7,15 +7,6 @@
  */
 class PluginsfAssetTable extends Doctrine_Table
 {
-  /**
-   * Returns an instance of this class.
-   *
-   * @return object PluginsfAssetTable
-   */
-  public static function getInstance()
-  {
-      return Doctrine_Core::getTable('PluginsfAsset');
-  }
   
   /**
    * check if file exists in folder
@@ -47,6 +38,133 @@ class PluginsfAssetTable extends Doctrine_Table
       ->andWhere('f.relative_path = ?', $relPath ?  $relPath : null)
       ;
     return $query->fetchOne();
+  }
+  
+  /**
+   * get pager for assets
+   * @param  array   $params
+   * @param  string  $sort
+   * @param  integer $page
+   * @param  integer $size
+   * @return sfPager
+   */
+  public function getPager(array $params, $sort = 'name', $page = 1, $size = 20)
+  {
+    $query = $this->search($params, $sort);
+
+    $pager = new sfDoctrinePager('sfAsset', $size);
+    $pager->setQuery($query);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
+  }
+  
+  /**
+   * process search
+   * @param  array    $params
+   * @param  string   $sort
+   * @return Doctrine_Query
+   */
+  protected function search(array $params, $sort = 'name')
+  {
+//    $c = new Criteria();
+    $query = $this->createQuery('a');
+
+    if (isset($params['folder_id']) && $params['folder_id'] !== '')
+    {
+      if (null!= $folder = sfAssetFolderTable::getInstance()->find($params['folder_id']))
+      {
+        if (false) $folder = new sfAssetFolder();
+        $query->leftJoin('a.Folder f');
+        $query->where('f.lft >= ?', $folder->getNode()->getLeftValue());
+        $query->andWhere('f.rgt <= ?', $folder->getNode()->getRightValue());
+      }
+    }
+    if (isset($params['filename']['is_empty']))
+    {
+      $query->andWhere('filename = \'\' or filename is null', null);
+//      $criterion = $c->getNewCriterion(self::FILENAME, '');
+//      $criterion->addOr($c->getNewCriterion(self::FILENAME, null, Criteria::ISNULL));
+//      $c->add($criterion);
+    }
+    elseif (isset($params['filename']['text']) && !strlen($params['filename']['text']))
+    {
+      $query->andWhere('filename like ?', '%' . trim($params['filename']['text'], '*%') . '%');
+//      $c->add(self::FILENAME, '%' . trim($params['filename']['text'], '*%') . '%', Criteria::LIKE);
+    }
+    if (isset($params['author']['is_empty']))
+    {
+      $query->andWhere('author = \'\' or author is null');
+//      $criterion = $c->getNewCriterion(self::AUTHOR, '');
+//      $criterion->addOr($c->getNewCriterion(self::AUTHOR, null, Criteria::ISNULL));
+//      $c->add($criterion);
+    }
+    elseif (isset($params['author']['text']) && $params['author']['text'] !== '')
+    {
+      $query->andWhere('author like ?', '%' . trim($params['author']['text'], '*%') . '%');
+//      $c->add(self::AUTHOR, '%' . trim($params['author']['text'], '*%') . '%', Criteria::LIKE);
+    }
+    if (isset($params['copyright']['is_empty']))
+    {
+      $query->andWhere('copyright = \'\' or copyright is null');
+//      $criterion = $c->getNewCriterion(self::COPYRIGHT, '');
+//      $criterion->addOr($c->getNewCriterion(self::COPYRIGHT, null, Criteria::ISNULL));
+//      $c->add($criterion);
+    }
+    elseif (isset($params['copyright']['text']) && $params['copyright']['text'] !== '')
+    {
+      $query->andWhere('copyright like ?', '%' . trim($params['copyright']['text'], '*%') . '%');
+      $c->add(self::COPYRIGHT, '%' . trim($params['copyright']['text'], '*%') . '%', Criteria::LIKE);
+    }
+    if (isset($params['created_at']))
+    {
+      // TODO query
+//      if (isset($params['created_at']['from']) && $params['created_at']['from'] !== array())  // TODO check this
+//      {
+//        $criterion = $c->getNewCriterion(self::CREATED_AT, $params['created_at']['from'], Criteria::GREATER_EQUAL);
+//      }
+//      if (isset($params['created_at']['to']) && $params['created_at']['to'] !== array())  // TODO check this
+//      {
+//        if (isset($criterion))
+//        {
+//          $criterion->addAnd($c->getNewCriterion(self::CREATED_AT, $params['created_at']['to'], Criteria::LESS_EQUAL));
+//        }
+//        else
+//        {
+//          $criterion = $c->getNewCriterion(self::CREATED_AT, $params['created_at']['to'], Criteria::LESS_EQUAL);
+//        }
+//      }
+//      if (isset($criterion))
+//      {
+//        $c->add($criterion);
+//      }
+    }
+    if (isset($params['description']['is_empty']))
+    {
+      $query->andWhere('description = \'\' or description is null');
+//      $criterion = $c->getNewCriterion(self::DESCRIPTION, '');
+//      $criterion->addOr($c->getNewCriterion(self::DESCRIPTION, null, Criteria::ISNULL));
+//      $c->add($criterion);
+    }
+    else if (isset($params['description']) && $params['description'] !== '')
+    {
+      $query->andWhere('description like ?', '%' . trim($params['description']['text'], '*%') . '%');
+//      $c->add(self::DESCRIPTION, '%' . trim($params['description'], '*%') . '%', Criteria::LIKE);
+    }
+
+    switch ($sort)
+    {
+      case 'date':
+        $query->orderBy('created_at', 'DESC');
+//        $c->addDescendingOrderByColumn(self::CREATED_AT);
+        break;
+      default:
+        $query->orderBy('filename', 'ASC');
+//        $c->addAscendingOrderByColumn(self::FILENAME);
+    }
+
+    return $query;
   }
   
 }
