@@ -43,10 +43,10 @@ EOF;
       throw new sfException('The asset library already has a root');
     }
 
-    $this->logSection('asset', sprintf('Creating root node at %s...', sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets')), null, 'COMMENT');
-    
+    $this->logSection('asset', sprintf('Creating root node at %s...', sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media')), null, 'COMMENT');
+
     $folder = new sfAssetFolder();
-    $folder->setName(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets'));
+    $folder->setName(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media'));
     
     $tree = sfAssetFolderTable::getInstance()->getTree()->createRoot($folder);
     $folder->save();

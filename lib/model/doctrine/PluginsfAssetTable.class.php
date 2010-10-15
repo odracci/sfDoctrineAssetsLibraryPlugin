@@ -149,11 +149,11 @@ class PluginsfAssetTable extends Doctrine_Table
     switch ($sort)
     {
       case 'date':
-        $query->orderBy('created_at', 'DESC');
+        $query->orderBy('created_at DESC');
 //        $c->addDescendingOrderByColumn(self::CREATED_AT);
         break;
       default:
-        $query->orderBy('filename', 'ASC');
+        $query->orderBy('filename ASC');
 //        $c->addAscendingOrderByColumn(self::FILENAME);
     }
 

@@ -5,14 +5,14 @@ sfAsset:
     description: asset1.png
     type:        image
     filesize:    1
-    created_at:  '<?php echo strtotime("-1 day") ?>'
+    created_at:  '<?php echo date("Y-m-d G:i:s", strtotime("-1 day")) ?>'
   asset2:
     Folder:   media
     filename:    asset2
     description: asset2.png
     type:        image
     filesize:    1
-    created_at:  '<?php echo strtotime("-3 hours") ?>'
+    created_at:  '<?php echo date("Y-m-d G:i:s", strtotime("-3 hours")) ?>'
   asset3:
     Folder:   media
     filename:    asset3

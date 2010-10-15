@@ -295,12 +295,12 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
     {
       case 'date':
         $dirs = sfAssetFolderTable::getInstance()->sortByDate($dirs);
-        $query->orderBy('created_at', 'DESC');
+        $query->orderBy('created_at DESC');
 //        $c->addDescendingOrderByColumn(sfAssetPeer::CREATED_AT);
         break;
       default:
         $dirs = sfAssetFolderTable::getInstance()->sortByName($dirs);
-        $query->orderBy('filename', 'ASC');
+        $query->orderBy('filename ASC');
 //        $c->addAscendingOrderByColumn(sfAssetPeer::FILENAME);
     }
 

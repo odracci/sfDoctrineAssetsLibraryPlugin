@@ -10,10 +10,10 @@
  */
 abstract class PluginsfAssetFormFilter extends BasesfAssetFormFilter
 {
-  public function configure()
+  protected function setupInheritance()
   {
     // hide some fields
-    unset($this['filesize'], $this['type']);
+    unset($this['filesize'], $this['type'], $this['updated_at']);
 
     // allow empty folder
     $this->widgetSchema['folder_id']->setOption('add_empty', true);
