@@ -365,7 +365,7 @@ ul.sf_admin_actions li.sf_admin_action_list
   padding: 5px 20px 5px 25px;
   font-size: 11px;
   color: #fff;
-  background: #73B65A url(/sfPropelPlugin/images/ok.png) no-repeat 5px 2px;
+  background: #73B65A url(/sfDoctrinePlugin/images/ok.png) no-repeat 5px 2px;
 }
 
 #sf_asset_container .form-row
@@ -392,7 +392,7 @@ ul.sf_admin_actions li.sf_admin_action_list
   padding: 5px 20px 5px 25px;
   font-size: 11px;
   color: #fff;
-  background: #f33 url(/sfPropelPlugin/images/error.png) no-repeat 5px 2px;
+  background: #f33 url(/sfDoctrinePlugin/images/error.png) no-repeat 5px 2px;
 }
 
 #sf_asset_container .form-errors dl
@@ -490,7 +490,7 @@ ul.sf_admin_actions li.sf_admin_action_list
 
 #sf_asset_container .sf_admin_action_create
 {
-  background: url(/sfPropelPlugin/images/add.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/add.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
@@ -514,31 +514,31 @@ ul.sf_admin_actions li.sf_admin_action_list
 
 #sf_asset_container .sf_admin_action_delete
 {
-  background: url(/sfPropelPlugin/images/delete.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/delete.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 #sf_asset_container .sf_admin_action_cancel
 {
-  background: url(/sfPropelPlugin/images/cancel.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/cancel.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 #sf_asset_container .sf_admin_action_filter
 {
-  background: url(/sfPropelPlugin/images/filter.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/filter.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 
 #sf_asset_container .sf_admin_action_reset_filter
 {
-  background: url(/sfPropelPlugin/images/reset.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/reset.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 #sf_asset_container .sf_admin_action_list
 {
-  background: url(/sfPropelPlugin/images/list.png) no-repeat 3px 2px;
+  background: url(/sfDoctrinePlugin/images/list.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 

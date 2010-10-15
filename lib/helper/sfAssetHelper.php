@@ -29,7 +29,7 @@ function asset_image_tag($asset, $thumbType = 'full', $options = array(), $relat
     $src = $asset->getUrl($thumbType, $relativePath, $asset->isPdf());
     if ($asset->isPdf() && !is_readable(sfConfig::get('sf_web_dir') . $src))
     {
-      $src = '/sfAssetsLibraryPlugin/images/pdf.png';
+      $src = '/sfDoctrineAssetsLibraryPlugin/images/pdf.png';
     }
   }
   elseif ($thumbType == 'full')
@@ -41,28 +41,28 @@ function asset_image_tag($asset, $thumbType = 'full', $options = array(), $relat
     switch ($asset->getType())
     {
       case 'txt':
-        $src = '/sfAssetsLibraryPlugin/images/txt.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/txt.png';
         break;
       case 'xls':
-        $src = '/sfAssetsLibraryPlugin/images/xls.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/xls.png';
         break;
       case 'doc':
-        $src = '/sfAssetsLibraryPlugin/images/doc.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/doc.png';
         break;
       case 'pdf':
-        $src = '/sfAssetsLibraryPlugin/images/pdf.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/pdf.png';
         break;
       case 'html':
-        $src = '/sfAssetsLibraryPlugin/images/html.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/html.png';
         break;
       case 'archive':
-        $src = '/sfAssetsLibraryPlugin/images/archive.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/archive.png';
         break;
       case 'bin':
-        $src = '/sfAssetsLibraryPlugin/images/bin.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/bin.png';
         break;
       default:
-        $src = '/sfAssetsLibraryPlugin/images/unknown.png';
+        $src = '/sfDoctrineAssetsLibraryPlugin/images/unknown.png';
     }
   }
 
@@ -111,7 +111,7 @@ function link_to_asset_action($text, $asset)
 function init_asset_library()
 {
   sfContext::getInstance()->getEventDispatcher()->connect('response.filter_content', 'insert_asset_popup_url');
-  use_javascript('/sfAssetsLibraryPlugin/js/main', 'last');
+  use_javascript('/sfDoctrineAssetsLibraryPlugin/js/main', 'last');
 }
 
 /**
@@ -203,6 +203,6 @@ function input_sf_asset_image_tag($name, $value = null, $options = array())
   $asset = empty($value) ? new sfAsset : sfAssetTable::getInstance()->find($value);
   
   return '<a id="sf_asset_input_image" href="#" rel="{url: \'' . $url . '\', name: \'' . $name . '\', type: \'' . $options['type'] . '\'}">' .
-    image_tag('/sfAssetsLibraryPlugin/images/folder_open', array('alt' => 'Insert Image', 'title' => __('Insert Image', null, 'sfAsset'))) . '</a> ' .
+    image_tag('/sfDoctrineAssetsLibraryPlugin/images/folder_open', array('alt' => 'Insert Image', 'title' => __('Insert Image', null, 'sfAsset'))) . '</a> ' .
     asset_image_tag($asset, 'small', array('id' => $options['id'] . '_img'));
 }

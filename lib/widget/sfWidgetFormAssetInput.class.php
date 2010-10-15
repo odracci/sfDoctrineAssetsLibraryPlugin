@@ -55,7 +55,7 @@ class sfWidgetFormAssetInput extends sfWidgetFormInputHidden
    */
   public function getJavascripts()
   {
-    return array('/sfAssetsLibraryPlugin/js/main');
+    return array('/sfDoctrineAssetsLibraryPlugin/js/main');
   }
 
   /**
