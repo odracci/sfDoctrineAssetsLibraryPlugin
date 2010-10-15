@@ -136,25 +136,19 @@ class PluginsfAssetTable extends Doctrine_Table
     if (isset($params['description']['is_empty']))
     {
       $query->andWhere('description = \'\' or description is null');
-//      $criterion = $c->getNewCriterion(self::DESCRIPTION, '');
-//      $criterion->addOr($c->getNewCriterion(self::DESCRIPTION, null, Criteria::ISNULL));
-//      $c->add($criterion);
     }
     else if (isset($params['description']) && $params['description'] !== '')
     {
       $query->andWhere('description like ?', '%' . trim($params['description']['text'], '*%') . '%');
-//      $c->add(self::DESCRIPTION, '%' . trim($params['description'], '*%') . '%', Criteria::LIKE);
     }
 
     switch ($sort)
     {
       case 'date':
         $query->orderBy('created_at DESC');
-//        $c->addDescendingOrderByColumn(self::CREATED_AT);
         break;
       default:
         $query->orderBy('filename ASC');
-//        $c->addAscendingOrderByColumn(self::FILENAME);
     }
 
     return $query;
