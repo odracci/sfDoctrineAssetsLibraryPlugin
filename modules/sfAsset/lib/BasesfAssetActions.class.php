@@ -48,7 +48,7 @@ abstract class BasesfAssetActions extends sfActions
     $this->fileform = new sfAssetForm(null, array('parent_id' => $folder->getId()));
     $this->renameform = new sfAssetFolderRenameForm($folder);
     $this->moveform = new sfAssetFolderMoveForm($folder);
-    $this->dirs = $this->getChildrens($folder);
+    $this->dirs = $this->getChildren($folder);
     $this->files = $folder->getSortedFiles($this->dirs, $this->processSort($request));
     $this->nbFiles = count($this->files);
     $this->totalSize = sfAssetFolderTable::countFilesSize($this->files);
@@ -58,12 +58,12 @@ abstract class BasesfAssetActions extends sfActions
     $this->removeLayoutIfPopup($request);
   }
   
-  protected function getChildrens($folder) {
-    $childrens = $folder->getNode()->getDescendants();
-    if ($childrens === false) {
+  protected function getChildren($folder) {
+    $children = $folder->getNode()->getDescendants();
+    if ($children === false) {
       return array();
     }
-    return $childrens;
+    return $children;
   }
 
   /**
