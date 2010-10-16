@@ -150,9 +150,7 @@ $browser->
     'rgt'    => 4,
     'name'          => 'foobar',
     'relative_path' => 'media/TESTsubdir1/foobar',
-  ));
-    exit();
-  
+  ))->
 
   info('rename folder')->
   with('response')->isRedirected()->followRedirect()->
