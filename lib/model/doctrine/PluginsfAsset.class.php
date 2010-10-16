@@ -242,7 +242,7 @@ abstract class PluginsfAsset extends BasesfAsset
   }
 
   /**
-   * @param  PropelPDO $con
+   * @param  Doctrine_Connection $con
    * @return boolean
    */
   public function delete(Doctrine_Connection $con = null)

@@ -59,7 +59,7 @@ abstract class BasesfAssetActions extends sfActions
   }
   
   protected function getChildren($folder) {
-    $children = $folder->getNode()->getDescendants();
+    $children = $folder->getNode()->getChildren();
     if ($children === false) {
       return array();
     }
