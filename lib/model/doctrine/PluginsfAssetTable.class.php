@@ -68,7 +68,6 @@ class PluginsfAssetTable extends Doctrine_Table
    */
   protected function search(array $params, $sort = 'name')
   {
-//    $c = new Criteria();
     $query = $this->createQuery('a');
 
     if (isset($params['folder_id']) && $params['folder_id'] !== '')
@@ -108,7 +107,6 @@ class PluginsfAssetTable extends Doctrine_Table
     elseif (isset($params['copyright']['text']) && strlen($params['copyright']['text']))
     {
       $query->andWhere('copyright like ?', '%' . trim($params['copyright']['text'], '*%') . '%');
-      $c->add(self::COPYRIGHT, '%' . trim($params['copyright']['text'], '*%') . '%', Criteria::LIKE);
     }
     if (isset($params['created_at']))
     {
@@ -152,6 +150,24 @@ class PluginsfAssetTable extends Doctrine_Table
     }
 
     return $query;
+  }
+  
+  public function getAssetsWithFilenames($folder_id)
+  {
+    $assets = $this->createQuery()->
+      where('folder_id = ?', $folder_id)->
+      execute();
+    
+//    $c = new Criteria();
+//    $c->add(sfAssetPeer::FOLDER_ID, $this->getId());
+//    $assets = sfAssetPeer::doSelect($c);
+    $filenames = array();
+    foreach ($assets as $asset)
+    {
+      $filenames[$asset->getFilename()] = $asset;
+    }
+
+    return $filenames;
   }
   
 }
