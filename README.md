@@ -1,7 +1,9 @@
 sfDoctrineAssetsLibrary plugin
 ==============================
 
-The `sfAssetsLibraryPlugin` is a full-featured multimedia asset library plugin.
+This is the sfAssetsLibraryPlugin Doctrine porting.
+
+The `sfDoctrineAssetsLibraryPlugin` is a full-featured multimedia asset library plugin.
 Not only does it allow you to upload and organize your media files
 (images, PDF documents, Flash objects, and so on) via a web interface, it also
 stores metadata about each file for easy retrieval or automated copyright and
@@ -18,7 +20,7 @@ Prerequisites
 
 This plugin for symfony 1.4 depends on [sfThumbnailPlugin](/plugins/sfThumbnailPlugin)
 to create thumbnails of image files. If this plugin is not yest installed, the symfony
-plugin dependency system will install it when you install `sfAssetsLibraryPlugin`.
+plugin dependency system will install it when you install `sfDoctrineAssetsLibraryPlugin`.
 
 Note: If [ImageMagick](http://www.imagemagick.org/) is installed (no need for the PEAR
 Imagick package, the plugin calls the `convert` script of the basic Image Magic
@@ -30,14 +32,15 @@ Installation
 
 1 - Install the plugin.
 
-The easiest way to install `sfAssetsLibraryPlugin` is to use the symfony command line:
+The easiest way to install `sfDoctrineAssetsLibraryPlugin` is to use the symfony command line:
 
-    > php symfony plugin:install sfAssetsLibraryPlugin
+    > php symfony plugin:install sfDoctrineAssetsLibraryPlugin
 
 Alternatively, if you don't have PEAR installed, you can download the latest package
 attached to this page and extract it under your project's `plugins/`
 directory. You can also refer to the plugin's Subversion repository by doing a
-checkout or an `svn:externals` of `http://svn.symfony-project.com/plugins/sfAssetsLibraryPlugin/branches/1.3`.
+checkout or an `svn:externals` of `http://svn.github.com/odracci/sfDoctrineAssetsLibraryPlugin.git`
+or use github repository: `http://github.com/odracci/sfDoctrineAssetsLibraryPlugin.git`
 
 If you use one of these alternative methods, you must enable the plugin in your
 `ProjectConfiguration.class.php` file and publish the plugin assets by
@@ -47,18 +50,15 @@ calling the `plugin:publish-assets` symfony task.
 
 Rebuild the model and generate the SQL code for the new tables:
 
-    > php symfony propel:build-model
-    > php symfony propel:build-forms
-    > php symfony propel:build-filters
-    > php symfony propel:build-sql
+    > php symfony doctrine:build --all-classes --sql
 
 Create the new tables in your database.
 
-    > php symfony propel:insert-sql
+    > php symfony doctrine:insert-sql
 
 3 - Configure your project to use the plugin features
 
-Enable the `sfAssetsLibraryPlugin` and the `sfThumbnailPlugin` in the project
+Enable the `sfDoctrineAssetsLibraryPlugin` and the `sfThumbnailPlugin` in the project
 configuration (unless you installed using `plugin:install`)
 
     [php]
@@ -67,7 +67,7 @@ configuration (unless you installed using `plugin:install`)
     {
       public function setup()
       {
-        $this->enablePlugins(array('sfPropelPlugin', 'sfAssetsLibraryPlugin', 'sfThumbnailPlugin'));
+        $this->enablePlugins(array('sfPropelPlugin', 'sfDoctrineAssetsLibraryPlugin', 'sfThumbnailPlugin'));
       }
     }
 
@@ -157,7 +157,7 @@ The `sfAsset` module provides four main features:
 The module has two main views (`list` and `edit`) that you can easily customize by
 using your own CSS or overriding some of their numerous partials in your application.
 The templates are organized the same way as the admin generated modules, so applying
-your own look and feel to the `sfAssetsLibrary` should be easy.
+your own look and feel to the `sfDoctrineAssetsLibrary` should be easy.
 
 The module is fully i18n'ed, and the plugin comes with English, French, Italian,
 and German translations.
@@ -181,8 +181,8 @@ you retrieved from the database, you can use the `asset_image_tag()` helper:
     <?php echo asset_image_tag($sf_asset) ?>
 
 
-Importing assets from an existing library
------------------------------------------
+Importing assets from an existing library (not ready)
+-----------------------------------------------------
 
 Whether you want to add assets to your library from an existing sfMediaLibrary,
 or to cleanup your database of removed files, you will probably need to synchronize
@@ -200,8 +200,8 @@ the sfAssetsLibrary, just type:
 You can call this task as many times you want, since it only performs database and
 filesystem operations when the two sources are not in sync.
 
-Using the assets library with TinyMCE
--------------------------------------
+Using the assets library with TinyMCE (not tested)
+--------------------------------------------------
 
 If you want to use the `sfAssetsLibrary` plugin as a replacement for tinyMCE's file
 browser for image insertion, you must first initiate the plugin with a helper in
@@ -245,10 +245,10 @@ That's it, the TinyMCE file browser is now the `sfAssetsLibrary`'s one.
           fields:
             foo: { attributes: { class: rich, rows: 5, cols: 70 } }
 
-Using the assets library with CK Editor
----------------------------------------
+Using the assets library with CK Editor (not tested)
+----------------------------------------------------
 
-If you want to use the `sfAssetsLibrary` plugin as a CKEditors's file
+If you want to use the `sfDoctrineAssetsLibrary` plugin as a CKEditors's file
 browser for file or image insertion, you must first add to `routing.yml` file:
 
     [yml]
@@ -304,7 +304,7 @@ Traditionally, when an asset has to be referenced in a form, a file input is use
 (`<input type='file'>`). It allows the user to upload a file from his computer to
 the server, and this file can be further embedded in a rich text content.
 
-Using the `sfAssetsLibraryPlugin`, you can change this control into some sort of
+Using the `sfDoctrineAssetsLibraryPlugin`, you can change this control into some sort of
 file input that refers to the assets library, or, to put it differently, to the
 files located on the server in `web/media`. The plugin comes with a special widget
 for that purpose, the `sfWidgetFormAssetInput`. Use is just like a regular widget:
