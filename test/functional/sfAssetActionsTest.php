@@ -160,7 +160,7 @@ $browser->
   with('form')->hasErrors(false)->
   with('doctrine')->check('sfAssetFolder', array(
     'lft'     => 3,
-    'rgt'    => 4,
+    'rgt'     => 4,
     'name'          => 'barfoo',
     'relative_path' => 'media/TESTsubdir1/barfoo',
   ))->
@@ -174,7 +174,7 @@ $browser->
   end()->
   with('doctrine')->check('sfAssetFolder', array(
     'lft'     => 3,
-    'rgt'    => 4,
+    'rgt'     => 4,
     'name'          => 'barfoo',
     'relative_path' => 'media/TESTsubdir1/barfoo',
   ), false)->
@@ -340,5 +340,30 @@ $browser->
   end()->
   with('response')->begin()->
     checkElement('div.search_result', 3)->
+  end()->
+
+  info('delete folder with sub folder')->
+  get('/sfAsset/dir/media')->
+  click('input[value="Create"]', array('sf_asset_folder' => array(
+    'name' => 'sub',
+  )))->
+  with('response')->isRedirected()->followRedirect()->
+  click('input[value="Create"]', array('sf_asset_folder' => array(
+    'name' => 'sub2',
+  )))->
+  with('response')->isRedirected()->followRedirect()->
+  info('create sub folder')->
+  get('/sfAsset/dir/media/sub')->
+  
+  info('delete folder with sub folder')->
+  click('Delete folder', array(), array('method' => 'delete', '_with_csrf' => true))->
+  with('request')->begin()->
+    isParameter('module', 'sfAsset')->
+    isParameter('action', 'deleteFolder')->
+  end()->
+  with('response')->isRedirected()->followRedirect()->
+  with('response')->begin()->
+    checkElement('div.save-ok', '/The folder has been deleted/')->
   end();
+  
   // TODO more tests...
