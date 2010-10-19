@@ -91,7 +91,7 @@ class PluginsfAssetFolderTable extends Doctrine_Table
   
   /**
    * @param  string   $folder
-   * @return Criteria
+   * @return Doctrine_Query
    */
   public function getAllNonDescendantsPathsCriteria($folder)
   {
@@ -100,27 +100,17 @@ class PluginsfAssetFolderTable extends Doctrine_Table
     $query->orWhere('rgt > ?', $folder->getNode()->getRightValue());
     
     return $query;
-    
-    $c = new Criteria();
-    $criterion1 = $c->getNewCriterion(self::TREE_LEFT, $folder->getLeftValue(), Criteria::LESS_THAN);
-    $criterion2 = $c->getNewCriterion(self::TREE_RIGHT, $folder->getRightValue(), Criteria::GREATER_THAN);
-    $criterion1->addOr($criterion2);
-    $c->add($criterion1);
-
-    return $c;
   }
   
    /**
     * get a criteria for all folders except one
     * @param  sfAssetFolder $folder folder to exclude
-    * @return Criteria
+    * @return Doctrine_Query
     */
    public function getAllPathsButOneCriteria($folder)
    {
      $query = $this->createQuery()
        ->where('id != ?', $folder->getId());
-//     $c = new Criteria();
-//     $c->add(self::ID, $folder->getId(), Criteria::NOT_EQUAL);
      return $query;
    }
   
@@ -162,5 +152,4 @@ class PluginsfAssetFolderTable extends Doctrine_Table
 
     return $sortedDirs;
   }
-  
 }

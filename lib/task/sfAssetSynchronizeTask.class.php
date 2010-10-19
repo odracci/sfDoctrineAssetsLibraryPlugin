@@ -45,7 +45,7 @@ EOF;
   {
     $databaseManager = new sfDatabaseManager($this->configuration);
     
-    if (!$rootFolder = sfAssetFolderPeer::retrieveRoot())
+    if (!$rootFolder = sfAssetFolderTable::getInstance()->getRoot())
     {
       $task = new sfAssetCreateRootTask($this->dispatcher, $this->formatter);
       $task->setCommandApplication($this->commandApplication);
@@ -55,7 +55,7 @@ EOF;
         $taskOption []= '--application=' . $options['application'];
       }
       $ret = $task->run(array(), $taskOption);
-      $rootFolder = sfAssetFolderPeer::retrieveRoot();
+      $rootFolder = sfAssetFolderTable::getInstance()->getRoot();
     }
     
     $this->logSection('asset', sprintf('Comparing files from %s with assets stored in the database...', $arguments['dirname']), null, 'COMMENT');

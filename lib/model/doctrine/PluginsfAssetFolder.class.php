@@ -312,16 +312,7 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
    */
   public function getAssetsWithFilenames()
   {
-    $c = new Criteria();
-    $c->add(sfAssetPeer::FOLDER_ID, $this->getId());
-    $assets = sfAssetPeer::doSelect($c);
-    $filenames = array();
-    foreach ($assets as $asset)
-    {
-      $filenames[$asset->getFilename()] = $asset;
-    }
-
-    return $filenames;
+    return sfAssetTable::getInstance()->getAssetsWithFilenames($this->getId());
   }
   
   /**

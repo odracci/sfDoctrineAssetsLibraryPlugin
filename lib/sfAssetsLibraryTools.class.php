@@ -214,29 +214,29 @@ class sfAssetsLibraryTools
     }
   }
 
-  /**
-   * Retrieves a sfMedia object from a relative URL like
-   *    /medias/foo/bar.jpg
-   * i.e. the kind of URL returned by getAssetUrl($sf_media, 'full', false)
-   * @param  string  $url
-   * @return sfMedia
-   */
-  public static function getAssetFromUrl($url)
-  {
-
-    $url = str_replace(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media'), '', $url);
-    
-    $url = rtrim($url, '/');
-    $parts = explode('/', $url);
-    $filename = array_pop($parts);
-    $relPath = '/' . implode('/', $parts);
-
-    $c = new Criteria();
-    $c->add(sfMediaPeer::FILENAME, $filename);
-    $c->add(sfMediaPeer::REL_PATH, $relPath ?  $relPath : null);
-
-    return sfMediaPeer::doSelectOne($c);
-  }
+//  /**
+//   * Retrieves a sfMedia object from a relative URL like
+//   *    /medias/foo/bar.jpg
+//   * i.e. the kind of URL returned by getAssetUrl($sf_media, 'full', false)
+//   * @param  string  $url
+//   * @return sfMedia
+//   */
+//  public static function getAssetFromUrl($url)
+//  {
+//
+//    $url = str_replace(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media'), '', $url);
+//    
+//    $url = rtrim($url, '/');
+//    $parts = explode('/', $url);
+//    $filename = array_pop($parts);
+//    $relPath = '/' . implode('/', $parts);
+//
+//    $c = new Criteria();
+//    $c->add(sfMediaPeer::FILENAME, $filename);
+//    $c->add(sfMediaPeer::REL_PATH, $relPath ?  $relPath : null);
+//
+//    return sfMediaPeer::doSelectOne($c);
+//  }
 
   /**
    * @param  boolean $fileSystem
