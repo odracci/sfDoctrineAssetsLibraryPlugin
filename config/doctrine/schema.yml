@@ -1,0 +1,28 @@
+sfAssetFolder:
+  actAs:
+    Timestampable: ~
+    NestedSet: ~
+#  treeMode: NestedSet
+  columns:
+    id:          { type: integer, notnull: true, autoincrement: true, primary: true }
+    name:          { type: string(255), notnull: true }
+    relative_path: { type: string(255), unique: true }
+
+sfAsset:
+  actAs:
+    Timestampable: ~
+  columns:
+    id:          { type: integer, notnull: true, autoincrement: true, primary: true }
+    folder_id:   { type: integer, notnull: true }
+    filename:    { type: string(255), notnull: true }
+    description: { type: string }
+    author:      { type: string }
+    copyright:   { type: string(100) }
+    type:        { type: string(10) }
+    filesize:    { type: integer }
+  indexes:
+    uk_folder_filename:
+      fields: [ folder_id, filename ]
+      type: unique
+  relations:
+    Folder:      { onDelete: CASCADE, local: folder_id, foreignAlias: sfAssetFolder, class: sfAssetFolder }
