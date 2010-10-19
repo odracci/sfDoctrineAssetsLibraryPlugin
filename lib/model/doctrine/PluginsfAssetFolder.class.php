@@ -60,12 +60,12 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
       $modified = $this->getModified();
       if (!array_key_exists('relative_path', $modified))
       {
-        if ($this->getNode()->getParent())
+        $parent = $this->getParent();
+        if ($parent !== false)
         {
-          $this->setRelativePath($this->getParent()->getRelativePath().'/'.$this->getName());
-          
+          $this->setRelativePath($parent->getRelativePath().'/'.$this->getName());
         }
-        else
+        else if ($this->isRoot()) 
         {
           $this->setRelativePath($this->getName());
         }
@@ -140,6 +140,7 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
     {
       throw new sfAssetException('Impossible to delete folder "%name%"', array('%name%' => $this->getName()));
     }
+    return $success;
   }
   
   public function getParent() {
@@ -208,20 +209,19 @@ abstract class PluginsfAssetFolder extends BasesfAssetFolder
       $old_path = $this->getFullPath();
 
       $this->getNode()->moveAsLastChildOf($new_parent);
-      // Update relative path
-      $this->save();
-
-      // move its assets
-      self::movePhysically($old_path, $this->getFullPath());
-
+      
       $descendants = $this->getNode()->getDescendants();
       if ($descendants !== false) {
         foreach ($descendants as $descendant)
         {
-          // Update relative path $descendant->getNode()->getDescendants() $descendant->getRelativePath()
+          // Update relative path
           $descendant->save();
         }
       }
+      // Update relative path
+      $this->save();
+      // move its assets
+      self::movePhysically($old_path, $this->getFullPath());
     }
     // else: nothing to do
   }
