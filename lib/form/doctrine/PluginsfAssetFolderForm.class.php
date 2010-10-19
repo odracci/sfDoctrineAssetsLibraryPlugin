@@ -3,9 +3,10 @@
 /**
  * PluginsfAssetFolder form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    sfDoctrineAssetsLibraryPlugin
  * @subpackage form
- * @author     ##AUTHOR_NAME##
+ * @author     Massimiliano Arione
+ * @author     Riccardo Bini
  * @version    SVN: $Id: sfDoctrineFormPluginTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 abstract class PluginsfAssetFolderForm extends BasesfAssetFolderForm
