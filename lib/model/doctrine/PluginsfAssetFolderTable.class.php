@@ -78,4 +78,8 @@ class PluginsfAssetFolderTable extends Doctrine_Table
   
       return $folder;
     }
+    
+    public function getRoot() {
+      return $this->getTree()->fetchRoot();
+    }
 }

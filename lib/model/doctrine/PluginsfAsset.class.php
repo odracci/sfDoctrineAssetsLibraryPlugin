@@ -105,8 +105,7 @@ abstract class PluginsfAsset extends BasesfAsset
   public function setFilename($filename)
   {
     $filename = sfAssetsLibraryTools::sanitizeName($filename);
-    $this->filename = $filename;
-//    parent::setFilename($filename);
+    $this->_set('filename', $filename);
   }
 
   /**
