@@ -5,7 +5,7 @@
 
 include dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
 $pluginPaths = $configuration->getAllPluginPaths();
-include $pluginPaths['sfAssetsLibraryPlugin'] . '/lib/sfAssetsLibraryTools.class.php';
+include $pluginPaths['sfDoctrineAssetsLibraryPlugin'] . '/lib/sfAssetsLibraryTools.class.php';
 
 // run the test
 $t = new lime_test(5, array('options' => new lime_output_color(), 'error_reporting' => true));

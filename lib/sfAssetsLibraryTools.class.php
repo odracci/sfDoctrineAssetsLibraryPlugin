@@ -104,10 +104,10 @@ class sfAssetsLibraryTools
     }
     else
     {
-      $info['icon'] = '/sfAssetsLibraryPlugin/images/unknown.png';
-      if (is_readable(sfConfig::get('sf_web_dir').'/sfAssetsLibraryPlugin/images/'.$info['ext'].'.png'))
+      $info['icon'] = '/sfDoctrineAssetsLibraryPlugin/images/unknown.png';
+      if (is_readable(sfConfig::get('sf_web_dir').'/sfDoctrineAssetsLibraryPlugin/images/'.$info['ext'].'.png'))
       {
-        $info['icon'] = '/sfAssetsLibraryPlugin/images/'.$info['ext'].'.png';
+        $info['icon'] = '/sfDoctrineAssetsLibraryPlugin/images/'.$info['ext'].'.png';
       }
     }
 

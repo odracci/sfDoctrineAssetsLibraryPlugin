@@ -30,7 +30,7 @@ class sfAssetsForm extends BasesfAssetForm
 
   /**
    * save all assets
-   * @param PropelPDO $con
+   * @param Doctrine_connection $con
    */
   protected function doSave($con = null)
   {
