@@ -10,7 +10,7 @@
  */
 class sfDoctrineAssetsLibraryPluginConfiguration extends sfPluginConfiguration
 {
-  const VERSION = '0.9.5';
+  const VERSION = '0.9.6';
 
   /**
    * @see sfPluginConfiguration
