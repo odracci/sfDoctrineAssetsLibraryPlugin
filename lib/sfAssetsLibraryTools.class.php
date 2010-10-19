@@ -224,7 +224,7 @@ class sfAssetsLibraryTools
   public static function getAssetFromUrl($url)
   {
 
-    $url = str_replace(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media'), '', $url);
+    $url = str_replace(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets'), '', $url);
     $url = rtrim($url, '/');
     $parts = explode('/', $url);
     $filename = array_pop($parts);
@@ -243,7 +243,7 @@ class sfAssetsLibraryTools
    */
   public static function getMediaDir($fileSystem = false)
   {
-    $upload_dir = rtrim(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media'), '/') . '/';
+    $upload_dir = rtrim(sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets'), '/') . '/';
 
     return $fileSystem ? sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR : '/';
   }

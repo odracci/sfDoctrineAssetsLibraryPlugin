@@ -7,7 +7,7 @@
  * @subpackage form
  * @author     Massimiliano Arione <garakkio@gmail.com>
  */
-class sfAssetsForm extends BasesfAssetForm
+class sfAssetsForm extends PluginsfAssetForm
 {
   public $assets = array();
 
@@ -22,7 +22,7 @@ class sfAssetsForm extends BasesfAssetForm
 
     // remove unneeded fields
     unset($this['filename'], $this['description'], $this['author'], $this['copyright'],
-          $this['type'], $this['filesize'], $this['created_at']);
+          $this['type'], $this['filesize'], $this['created_at'], $this['updated_at']);
 
     // formatter (see sfWidgetFormSchemaFormatterAsset.class.php)
     $this->widgetSchema->setFormFormatterName('assets');

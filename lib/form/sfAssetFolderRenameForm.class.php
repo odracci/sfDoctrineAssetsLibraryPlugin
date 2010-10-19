@@ -12,7 +12,7 @@ class sfAssetFolderRenameForm extends PluginsfAssetFolderForm
   public function configure()
   {
     // remove unneeded fields
-    unset($this['tree_left'], $this['tree_right'], $this['relative_path'],
+    unset($this['lft'], $this['rgt'], $this['level'], $this['relative_path'],
           $this['created_at'], $this['updated_at']);
 
     // avoid id conflict for id

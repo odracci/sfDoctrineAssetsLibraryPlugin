@@ -12,10 +12,10 @@ class PluginsfAssetFolderTable extends Doctrine_Table
      *
      * @return object PluginsfAssetFolderTable
      */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('PluginsfAssetFolder');
-    }
+//    public static function getInstance()
+//    {
+//        return Doctrine_Core::getTable('PluginsfAssetFolder');
+//    }
     
     /**
      * Retrieves folder by relative path
@@ -42,7 +42,7 @@ class PluginsfAssetFolderTable extends Doctrine_Table
     public function cleanPath($path, $separator = '/')
     {
       $path = trim($path, $separator);
-      $root_name = sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media');
+      $root_name = sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets');
       if (!$path)
       {
         $path = $root_name;
@@ -82,4 +82,95 @@ class PluginsfAssetFolderTable extends Doctrine_Table
     public function getRoot() {
       return $this->getTree()->fetchRoot();
     }
+    
+  /**
+   * Calculate total size of files
+   * @param  array   $files
+   * @return integer
+   */
+  public static function countFilesSize($files)
+  {
+    $totalSize = 0;
+    foreach ($files as $file)
+    {
+      $totalSize += $file->getFilesize();
+    }
+
+    return $totalSize;
+  }
+  
+  /**
+   * @param  string   $folder
+   * @return Criteria
+   */
+  public function getAllNonDescendantsPathsCriteria($folder)
+  {
+    $query = $this->createQuery();
+    $query->where('lft < ?', $folder->getNode()->getLeftValue());
+    $query->orWhere('rgt > ?', $folder->getNode()->getRightValue());
+    
+    return $query;
+    
+    $c = new Criteria();
+    $criterion1 = $c->getNewCriterion(self::TREE_LEFT, $folder->getLeftValue(), Criteria::LESS_THAN);
+    $criterion2 = $c->getNewCriterion(self::TREE_RIGHT, $folder->getRightValue(), Criteria::GREATER_THAN);
+    $criterion1->addOr($criterion2);
+    $c->add($criterion1);
+
+    return $c;
+  }
+  
+   /**
+    * get a criteria for all folders except one
+    * @param  sfAssetFolder $folder folder to exclude
+    * @return Criteria
+    */
+   public function getAllPathsButOneCriteria($folder)
+   {
+     $query = $this->createQuery()
+       ->where('id != ?', $folder->getId());
+//     $c = new Criteria();
+//     $c->add(self::ID, $folder->getId(), Criteria::NOT_EQUAL);
+     return $query;
+   }
+  
+  /**
+   * sort dirs by name
+   * @param  array $dirs
+   * @return array
+   */
+  public static function sortByName($dirs = array())
+  {
+    $sortedDirs = array();
+    foreach ($dirs as $dir)
+    {
+      $key = strtolower($dir->getRelativePath());
+      if (array_key_exists($key, $sortedDirs))
+      {
+        $key .= time();
+      }
+      $sortedDirs[$key] = $dir;
+    }
+    ksort($sortedDirs);
+
+    return $sortedDirs;
+  }
+
+  /**
+   * sort dirs by date
+   * @param  array $dirs
+   * @return array
+   */
+  public static function sortByDate($dirs = array())
+  {
+    $sortedDirs = array();
+    foreach ($dirs as $dir)
+    {
+      $sortedDirs[$dir->getCreatedAt('U')] = $dir;
+    }
+    krsort($sortedDirs);
+
+    return $sortedDirs;
+  }
+  
 }

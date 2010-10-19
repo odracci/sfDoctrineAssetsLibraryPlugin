@@ -58,7 +58,7 @@ class sfAssetRouting
     $r->prependRoute('sf_asset_library_dir', new sfRoute('/sfAsset/dir/:dir', array(
         'module'  => 'sfAsset',
         'action'  => 'list',
-        'dir'     => sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media')
+        'dir'     => sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets')
       ),
       array('dir' => '.*?'))
     );
@@ -66,7 +66,7 @@ class sfAssetRouting
     $r->prependRoute('sf_asset_library_root', new sfRoute('/sfAsset', array(
       'module' => 'sfAsset',
       'action' => 'index',
-      'dir'    => sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media')
+      'dir'    => sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets')
     )));
   }
 }

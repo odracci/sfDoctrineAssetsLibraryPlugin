@@ -2,7 +2,6 @@ sfAssetFolder:
   actAs:
     Timestampable: ~
     NestedSet: ~
-#  treeMode: NestedSet
   columns:
     id:          { type: integer, notnull: true, autoincrement: true, primary: true }
     name:          { type: string(255), notnull: true }
