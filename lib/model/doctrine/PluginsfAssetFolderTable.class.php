@@ -32,7 +32,7 @@ class PluginsfAssetFolderTable extends Doctrine_Table
     public function cleanPath($path, $separator = '/')
     {
       $path = trim($path, $separator);
-      $root_name = sfConfig::get('app_sfAssetsLibrary_upload_dir', 'uploads/assets');
+      $root_name = sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media');
       if (!$path)
       {
         $path = $root_name;
