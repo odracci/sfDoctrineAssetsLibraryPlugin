@@ -1,0 +1,351 @@
+sfDoctrineAssetsLibrary plugin
+==============================
+
+This is the sfAssetsLibraryPlugin Doctrine porting.
+
+The `sfDoctrineAssetsLibraryPlugin` is a full-featured multimedia asset library plugin.
+Not only does it allow you to upload and organize your media files
+(images, PDF documents, Flash objects, and so on) via a web interface, it also
+stores metadata about each file for easy retrieval or automated copyright and
+legend inclusion. It is the perfect companion for rich text editors like TinyMCE.
+
+Screenshot
+----------
+
+![sfAssetsLibraryList.png](http://trac.symfony-project.org/attachment/wiki/sfAssetsLibraryPlugin/sfAssetsLibraryList.png?format=raw)
+![sfAssetsLibraryEdit.png](http://trac.symfony-project.org/attachment/wiki/sfAssetsLibraryPlugin/sfAssetsLibraryEdit.png?format=raw)
+
+Prerequisites
+-------------
+
+This plugin for symfony 1.4 depends on [sfThumbnailPlugin](/plugins/sfThumbnailPlugin)
+to create thumbnails of image files. If this plugin is not yest installed, the symfony
+plugin dependency system will install it when you install `sfDoctrineAssetsLibraryPlugin`.
+
+Note: If [ImageMagick](http://www.imagemagick.org/) is installed (no need for the PEAR
+Imagick package, the plugin calls the `convert` script of the basic Image Magic
+library), then the image thumbnails will be of better quality. See the "Configuration"
+section below for the way to activate ImageMagick support in the plugin.
+
+Installation
+------------
+
+1 - Install the plugin.
+
+The easiest way to install `sfDoctrineAssetsLibraryPlugin` is to use the symfony command line:
+
+    > php symfony plugin:install sfDoctrineAssetsLibraryPlugin
+
+Alternatively, if you don't have PEAR installed, you can download the latest package
+attached to this page and extract it under your project's `plugins/`
+directory. You can also refer to the plugin's Subversion repository by doing a
+checkout or an `svn:externals` of `http://svn.github.com/odracci/sfDoctrineAssetsLibraryPlugin.git`
+or use github repository: `http://github.com/odracci/sfDoctrineAssetsLibraryPlugin.git`
+
+If you use one of these alternative methods, you must enable the plugin in your
+`ProjectConfiguration.class.php` file and publish the plugin assets by
+calling the `plugin:publish-assets` symfony task.
+
+2 - Build the data structures
+
+Rebuild the model and generate the SQL code for the new tables:
+
+    > php symfony doctrine:build --all-classes --sql
+
+Create the new tables in your database.
+
+    > php symfony doctrine:insert-sql
+
+3 - Configure your project to use the plugin features
+
+Enable the `sfDoctrineAssetsLibraryPlugin` and the `sfThumbnailPlugin` in the project
+configuration (unless you installed using `plugin:install`)
+
+    [php]
+    // in myproject/config/ProjectConfiguration.class.php
+    class ProjectConfiguration extends sfProjectConfiguration
+    {
+      public function setup()
+      {
+        $this->enablePlugins(array('sfPropelPlugin', 'sfDoctrineAssetsLibraryPlugin', 'sfThumbnailPlugin'));
+      }
+    }
+
+Enable the `sfAsset` module in your backend application, via the
+`settings.yml` file.
+
+    [yml]
+    // in myproject/apps/backend/config/settings.yml
+    all:
+      .settings:
+        enabled_modules:        [default, sfAsset]
+
+Configure the path to the root assets directory in the `app.yml` file:
+
+    [yml]
+    // in myproject/config/app.yml
+    all:
+      sfAssetsLibrary:
+        upload_dir:               media
+
+In the above example, uploaded files will be stored under the `web/media`
+directory.
+
+4 - Clear the cache to enable the autoloading to find the new classes:
+
+    > php symfony cc
+
+5 - Use the bundled `asset:create-root` task to initialize the root asset
+directory in the filesystem and in the database. The name of the root asset
+directory will be read from the `app.yml` configuration you just defined:
+
+    > php symfony asset:create-root
+
+>**NOTE**
+>*nix users must call this command with the same user group as the http
+>server, because it will need write access to this directory. Alternatively,
+>`chmod 777` or `chgrp` can be used.
+
+6 - You can now start using the plugin by browsing to the backend module's
+default page:
+
+    http://myproject/backend_dev.php/sfAsset
+
+Configuration
+-------------
+
+You can modify the plugin settings by way of the configuration. Here is a list
+of the settings you can change in your application's `app.yml`:
+
+    [yml]
+    # in apps/backend/config/app.yml
+    all:
+      sfAssetsLibrary:
+        upload_dir:       media              # Asset library root, under the web/ dir
+        check_type:       false              # Set to true if you want to restrict the type of assets
+        types:                               # Accepted asset types if check_type is true
+          image:   image
+          txt:     txt
+          archive: archive
+          pdf:     pdf
+          xls:     xls
+          doc:     doc
+          ppt:     ppt
+        thumbnail_dir:    thumbnail          # Where the image thumbnails are stored
+        use_ImageMagick:  false              # Set to true if you have the convert command
+        thumbnails:                          # Name and size (in pixels) of the thumbnails created at upload
+          small:                             # Displayed in the list page
+            width: 84
+            height: 84
+            shave: true                      # Cut strips to constraint the image size
+          large:                             # Displayed in the details page
+            width: 194
+            height: 152
+        search_pager_size: 20                # Number of resuts per page
+        mass_upload_size:  5                 # Number of file upload controls displayed in the mass upload form
+
+
+The `sfAsset` module
+--------------------
+
+The `sfAsset` module provides four main features:
+ - Browse through your media files like in a filesystem.
+ - Read or change metadata for a particular file
+ - Perform usual filesystem operations on your files and folder (add, move, rename, delete)
+ - Search for a particular media file from its filename, description, author, etc.
+
+The module has two main views (`list` and `edit`) that you can easily customize by
+using your own CSS or overriding some of their numerous partials in your application.
+The templates are organized the same way as the admin generated modules, so applying
+your own look and feel to the `sfDoctrineAssetsLibrary` should be easy.
+
+The module is fully i18n'ed, and the plugin comes with English, French, Italian,
+and German translations.
+
+>**NOTE**
+>It's very important that you point the main module from your links (e.g. a navigation menu)
+>to the route `@sf_asset_library_root`. Skipping this passage could lead to problems with layout,
+>since the popup layout is different from the "standard" one.
+
+Using the assets from the library in your applications
+------------------------------------------------------
+
+Uploaded assets end up under the `sfConfig::get('sf_web_root') . sfConfig::get('app_sfAssetsLibrary_upload_dir')`
+directory. The path to a particular media file appears in its details page fo the
+`sfAsset` module, so if you need to use it somewhere in your application, just
+copy this path. Alternatively, if you need to include an image tag to an asset
+you retrieved from the database, you can use the `asset_image_tag()` helper:
+
+    [php]
+    <?php use_helper('sfAsset') ?>
+    <?php echo asset_image_tag($sf_asset) ?>
+
+
+Importing assets from an existing library (not ready)
+-----------------------------------------------------
+
+Whether you want to add assets to your library from an existing sfMediaLibrary,
+or to cleanup your database of removed files, you will probably need to synchronize
+the assets database with a directory.
+
+Fortunately, the plugin comes with a task `asset:synchronize` to do just that:
+
+    > php symfony asset:synchronize [app] [dirname] --notVerbose --removeOrphanAssets --removeOrphanFolders
+
+For instance, to import an existing Media Library under `web/uploads/media` to
+the sfAssetsLibrary, just type:
+
+    > php symfony asset:synchronize backend /path/to/project/web/uploads/media --removeOrphanAssets --removeOrphanFolders
+
+You can call this task as many times you want, since it only performs database and
+filesystem operations when the two sources are not in sync.
+
+Using the assets library with TinyMCE (not tested)
+--------------------------------------------------
+
+If you want to use the `sfAssetsLibrary` plugin as a replacement for tinyMCE's file
+browser for image insertion, you must first initiate the plugin with a helper in
+the template:
+
+    [php]
+    <?php use_helper('sfAsset') ?>
+    <?php use_javascript('tiny_mce/tiny_mce') /* must point to your actual path of tinyMCE */ ?>
+    <?php use_javascript('tiny_mce/setup) /* you must create setup.js, see below */ ?>
+    <?php echo init_asset_library() ?>
+
+You need to create a setup.js file in tiny_mce directory (you can name this file as you
+prefer and store it whenever you want, as long as you point it correctly).
+This is an example of its content:
+
+    [javascript]
+    tinyMCE.init({
+      theme : "advanced",
+      mode: "textareas",
+      editor_selector : "rich",
+      relative_urls: false,
+      file_browser_callback : 'sfAssetsLibrary.fileBrowserCallBack'
+    });
+
+Please refer to [official documentation](http://wiki.moxiecode.com/index.php/TinyMCE:Configuration)
+for more detailed configuration.
+
+That's it, the TinyMCE file browser is now the `sfAssetsLibrary`'s one.
+
+>**TIP**: For use with an admin generated module, place the `init_asset_library()` call
+>in the `_assets.php` partial in the `templates/` directory of the module. If you miss
+>that template, just copy it from the cache auto-generated module.
+>To add class in a `generator.yml`, do as follows:
+
+    [yml]
+    generator:
+    # ...
+        config:
+      # ...
+        form:
+          fields:
+            foo: { attributes: { class: rich, rows: 5, cols: 70 } }
+
+Using the assets library with CK Editor (not tested)
+----------------------------------------------------
+
+If you want to use the `sfDoctrineAssetsLibrary` plugin as a CKEditors's file
+browser for file or image insertion, you must first add to `routing.yml` file:
+
+    [yml]
+    sf_asset_list:
+      url:   /mediapopup
+      param: { module: sfAsset, action: list }
+
+Then you must initiate the plugin with a helper in the template:
+
+    [php]
+    <?php use_helper('sfAsset') ?>
+    <?php use_javascript('ckeditor/ckeditor') /* must point to your actual path of CKEditor */ ?>
+    
+
+For example if id of textarea is `myrich` then somewhare under this field we need to put
+
+    [php]
+    <script type="text/javascript">
+    CKEDITOR.replace( 'myrich',
+        {
+            filebrowserBrowseUrl : '<?php echo get_asset_url() ?>',
+            filebrowserUploadUrl : '<?php echo get_asset_url() ?>'
+        });
+    </script>
+
+Please refer to [official documentation](http://docs.cksource.com/CKEditor_3.x/Developers_Guide)
+for more detailed configuration.
+
+>**TIP**: For use with an admin generated module, place Java Script with CKEDITOR.replace
+>in the `_form_footer.php` partial in the `templates/` directory of the module. 
+>To add id in a `generator.yml`, do as follows:
+
+For use with an admin generated module:
+
+    [yml]
+    generator:
+    # ...
+        config:
+      # ...
+        form:
+          fields:
+            foo: { attributes: { id: myrich, rows: 5, cols: 70 } }
+
+>**TIP**: To use ckeditor for all textareas in form globaly use CKEDITOR.replaceAll()
+>Please refer to [official documentation](http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.html#.replaceAll)
+>for more detailed configuration. 
+
+
+Using the form's widget
+-----------------------
+
+Traditionally, when an asset has to be referenced in a form, a file input is used
+(`<input type='file'>`). It allows the user to upload a file from his computer to
+the server, and this file can be further embedded in a rich text content.
+
+Using the `sfDoctrineAssetsLibraryPlugin`, you can change this control into some sort of
+file input that refers to the assets library, or, to put it differently, to the
+files located on the server in `web/media`. The plugin comes with a special widget
+for that purpose, the `sfWidgetFormAssetInput`. Use is just like a regular widget:
+
+    [php]
+    public function configure()
+    {
+      $this->widgetSchema['asset_id'] = new sfWidgetFormAssetInput();
+      // usually you don't need to define validator, it should be already defined in generated form
+      $this->validatorSchema['asset_id'] = new sfValidatorPropelChoice('model' => 'sfAsset');
+    }
+
+If not in admin generator, remember to use `use_javascripts_for_form($form)` in your form's template.
+
+This input is not a real file input tag, meaning that the chosen asset file will not
+be posted with the request. Instead, the action will be able to retrieve the asset
+file path relative to the web root, exactly what is needed to display it. Incidentally,
+this means that your form doesn't need to be set multipart.
+
+Optionally, you can restrict the choice of possible assets in this input to images
+only, as follows:
+
+    [php]
+    $this->widgetSchema['asset_id'] = new sfWidgetFormAssetInput(array('asset_type' => 'image'))
+
+
+Thumbnails of PDF files
+-----------------------
+
+If you use ImageMagick, a nice thumbnail of PDF file is generated and used instead of default
+type icon. Since the current version of `sfThumbnailPlugin` does not support generation of
+single page thumbnails, this is working only with single page files. If you add a PDF with multiple
+pages, wrong thumbnails (with subsequent numbers in name) will be generated.
+You can apply the patch found on [this ticket](http://trac.symfony-project.org/ticket/9059)
+to avoid this problem.
+
+
+TODO
+----
+
+* Make list of ignored files and folders configurable in synchronize task
+* 100% model coverage for unit tests
+* Drag and drop manipulation for file and folders
+* Screencast to show installation and usage
