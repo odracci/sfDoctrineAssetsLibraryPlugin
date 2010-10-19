@@ -7,12 +7,12 @@
  * @subpackage form
  * @author     Massimiliano Arione <garakkio@gmail.com>
  */
-class sfAssetFolderMoveForm extends PluginsfAssetFolderForm
+class sfAssetFolderMoveForm extends BasesfAssetFolderForm
 {
   public function configure()
   {
     // remove unneeded fields
-    unset($this['name'], $this['tree_left'], $this['tree_right'], $this['relative_path'],
+    unset($this['name'], $this['lft'], $this['rgt'], $this['level'], $this['relative_path'],
           $this['created_at'], $this['updated_at']);
 
     // add parent folder select

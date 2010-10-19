@@ -50,7 +50,6 @@ abstract class BasesfAssetActions extends sfActions
     $this->moveform = new sfAssetFolderMoveForm($folder);
     $this->dirs = $this->getChildrens($folder);
     $this->files = $folder->getSortedFiles($this->dirs, $this->processSort($request));
-    $this->files = array();
     $this->nbFiles = count($this->files);
     $this->totalSize = sfAssetFolderTable::countFilesSize($this->files);
     $this->nbDirs = count($this->dirs);
@@ -143,7 +142,7 @@ abstract class BasesfAssetActions extends sfActions
         $this->getUser()->setFlash('warning_params', $e->getMessageParams());
       }
 
-//      return $this->redirectToPath('@sf_asset_library_dir?dir=' . $folder->getRelativePath());
+      return $this->redirectToPath('@sf_asset_library_dir?dir=' . $folder->getRelativePath());
     }
   }
   

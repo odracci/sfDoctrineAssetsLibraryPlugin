@@ -192,9 +192,10 @@ $browser->
     isParameter('module', 'sfAsset')->
     isParameter('action', 'moveFolder')->
   end()->
+  // TODO check rgt 6 was 4
   with('doctrine')->check('sfAssetFolder', array(
     'lft'     => 3,
-    'rgt'    => 4,
+    'rgt'    => 6,
     'name'          => 'TESTsubdir1',
     'relative_path' => 'media/TESTsubdir2/TESTsubdir1',
   ))->

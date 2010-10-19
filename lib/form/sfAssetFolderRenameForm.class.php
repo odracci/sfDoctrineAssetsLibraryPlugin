@@ -7,7 +7,7 @@
  * @subpackage form
  * @author     Massimiliano Arione <garakkio@gmail.com>
  */
-class sfAssetFolderRenameForm extends PluginsfAssetFolderForm
+class sfAssetFolderRenameForm extends BasesfAssetFolderForm
 {
   public function configure()
   {
