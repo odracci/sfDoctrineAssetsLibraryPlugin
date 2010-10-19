@@ -27,7 +27,6 @@ class PluginsfAssetFolderTable extends Doctrine_Table
     public function retrieveByPath($path = '', $separator = DIRECTORY_SEPARATOR)
     {
       $path = $this->cleanPath($path, $separator);
-      var_dump($path);
       $query = $this->createQuery()->where('relative_path = ?', $path ? $path : null);
       
       return $query->fetchOne();
