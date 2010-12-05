@@ -335,11 +335,8 @@ Thumbnails of PDF files
 -----------------------
 
 If you use ImageMagick, a nice thumbnail of PDF file is generated and used instead of default
-type icon. Since the current version of `sfThumbnailPlugin` does not support generation of
-single page thumbnails, this is working only with single page files. If you add a PDF with multiple
-pages, wrong thumbnails (with subsequent numbers in name) will be generated.
-You can apply the patch found on [this ticket](http://trac.symfony-project.org/ticket/9059)
-to avoid this problem.
+type icon. Thumbnail could be wrong in some limited cases. Please check
+[this ticket](http://trac.symfony-project.org/ticket/4116) to know more about the issue.
 
 
 TODO

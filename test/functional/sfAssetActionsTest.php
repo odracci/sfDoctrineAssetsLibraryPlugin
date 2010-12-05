@@ -142,6 +142,22 @@ $browser->
   end()->
   get('/sfAsset/dir/media/TESTsubdir1')->
   click('input[value="Create"]', array('sf_asset_folder' => array(
+    'name' => 'invalid name!',
+  )))->
+  with('form')->begin()->
+    hasErrors(1)->
+    isError('name', 'invalid')->
+  end()->
+  get('/sfAsset/dir/media/TESTsubdir1')->
+  click('input[value="Create"]', array('sf_asset_folder' => array(
+    'name' => 'thumbnail',
+  )))->
+  with('form')->begin()->
+    hasErrors(1)->
+    isError('name', 'invalid')->
+  end()->
+  get('/sfAsset/dir/media/TESTsubdir1')->
+  click('input[value="Create"]', array('sf_asset_folder' => array(
     'name' => 'foobar',
   )))->
   with('form')->hasErrors(false)->
@@ -154,6 +170,22 @@ $browser->
 
   info('rename folder')->
   with('response')->isRedirected()->followRedirect()->
+  click('input[value="Rename"]', array('sf_asset_folder' => array(
+    'name' => 'invalid name!',
+  )))->
+  with('form')->begin()->
+    hasErrors(1)->
+    isError('name', 'invalid')->
+  end()->
+  get('/sfAsset/dir/media/TESTsubdir1/foobar')->
+  click('input[value="Rename"]', array('sf_asset_folder' => array(
+    'name' => 'thumbnail',
+  )))->
+  with('form')->begin()->
+    hasErrors(1)->
+    isError('name', 'invalid')->
+  end()->
+  get('/sfAsset/dir/media/TESTsubdir1/foobar')->
   click('input[value="Rename"]', array('sf_asset_folder' => array(
     'name' => 'barfoo',
   )))->

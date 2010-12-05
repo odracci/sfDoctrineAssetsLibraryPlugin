@@ -31,9 +31,13 @@ abstract class PluginsfAssetFolderForm extends BasesfAssetFolderForm
     $this->widgetSchema['name']->setIdFormat('create_%s');
     $this->widgetSchema['parent_folder']->setIdFormat('create_%s');
 
-    // check for correct name
-    $this->validatorSchema['name'] = new sfValidatorRegex(array(
-      'pattern' => '/^[a-zA-Z0-9\-\_\.]+$/',
+    // check for: correct name, name not equal to "thumbnail"
+    $this->validatorSchema['name'] = new sfValidatorAnd(array(
+      new sfValidatorRegex(array('pattern' => '/^[a-zA-Z0-9\-\_\.]+$/')),
+      new sfValidatorRegex(array(
+        'pattern'    => '/^' . sfConfig::get('app_sfAssetsLibrary_thumbnail_dir', 'thumbnail') . '$/',
+        'must_match' => false,
+      )),
     ));
   }
 

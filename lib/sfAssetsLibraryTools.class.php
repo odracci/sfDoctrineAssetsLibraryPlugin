@@ -377,13 +377,16 @@ class sfAssetsLibraryTools
       $mime = 'image/jpg';
       if ($shave_all)
       {
-        $thumbnail = new sfThumbnail($width, $height, false, false, 85, $adapter, array('method' => 'shave_all'));
+        $thumbnail = new sfThumbnail($width, $height, false, false, 85, $adapter, array(
+          'method'  => 'shave_all',
+          'extract' => 0,
+        ));
       }
       else
       {
         list($w, $h) = self::getPdfSize($source);
         $newHeight = $width > 0 && $w > 0 ? ceil(($width * $h) / $w) : $height;
-        $thumbnail = new sfThumbnail($width, $newHeight, true, false, 85, $adapter);
+        $thumbnail = new sfThumbnail($width, $newHeight, true, false, 85, $adapter, array('extract' => 0));
       }
       $thumbnail->loadFile($source);
       $thumbnail->save($dest, $mime, true);

@@ -17,5 +17,14 @@ class sfAssetFolderRenameForm extends BasesfAssetFolderForm
 
     // avoid id conflict for id
     $this->widgetSchema['id']->setIdFormat('rename_%s');
+
+    // check for: correct name, name not equal to "thumbnail"
+    $this->validatorSchema['name'] = new sfValidatorAnd(array(
+      new sfValidatorRegex(array('pattern' => '/^[a-zA-Z0-9\-\_\.]+$/')),
+      new sfValidatorRegex(array(
+        'pattern'    => '/^' . sfConfig::get('app_sfAssetsLibrary_thumbnail_dir', 'thumbnail') . '$/',
+        'must_match' => false,
+      )),
+    ));
   }
 }
