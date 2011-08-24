@@ -164,8 +164,8 @@
         <target>Статистика по папке</target>
       </trans-unit>
       <trans-unit>
-        <source>[1]One subfolder|(1,+Inf)%nb% subfolders</source>
-        <target>[1]Одна подпапка|(1,+Inf)%nb% подпапок(ки)</target>
+        <source>[1]One subfolder|(1,+Inf]%nb% subfolders</source>
+        <target>[1]Одна подпапка|(1,+Inf]%nb% подпапок(ки)</target>
       </trans-unit>
       <trans-unit>
         <source>[1]One file, %weight% KiB|(1,+Inf]%nb% files, %weight% KiB</source>

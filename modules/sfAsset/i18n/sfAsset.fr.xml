@@ -164,8 +164,8 @@
         <target>Statistiques</target>
       </trans-unit>
       <trans-unit>
-        <source>[1]One subfolder|(1,+Inf)%nb% subfolders</source>
-        <target>[1]Un sous-répertoire|(1,+Inf)%nb% sous-répertoires</target>
+        <source>[1]One subfolder|(1,+Inf]%nb% subfolders</source>
+        <target>[1]Un sous-répertoire|(1,+Inf]%nb% sous-répertoires</target>
       </trans-unit>
       <trans-unit>
         <source>[1]One file, %weight% KiB|(1,+Inf]%nb% files, %weight% KiB</source>

@@ -164,7 +164,7 @@
         <target>Statistiche</target>
       </trans-unit>
       <trans-unit>
-        <source>[1]One subfolder|(1,+Inf)%nb% subfolders</source>
+        <source>[1]One subfolder|(1,+Inf]%nb% subfolders</source>
         <target>[1]Una sottocartella|(1,+Inf]%nb% sottocartelle</target>
       </trans-unit>
       <trans-unit>
