@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Asset Library</source>
+        <target>Файловая библиотека</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Tools</source>
+        <target>Инструменты</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Folder management</source>
+        <target>Управлять папкой</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Add a subfolder</source>
+        <target>Добавить подпапку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Upload a file here</source>
+        <target>Загрузить сюда файл</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Parent directory</source>
+        <target>Корневая папка</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Rename folder</source>
+        <target>Переименовать папку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Move folder</source>
+        <target>Переместить папку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Delete folder</source>
+        <target>Удалить папку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Create</source>
+        <target>Создать</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Add</source>
+        <target>Добавить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sort order</source>
+        <target>Сортировка</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sorted by name</source>
+        <target>Отсортированы по именам</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sorted by date</source>
+        <target>Отсортированы по датам</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sort by name</source>
+        <target>Сортировать по именам</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sort by date</source>
+        <target>Сортировать по датам</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Search</source>
+        <target>Искать</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Folder id</source>
+        <target>ID папки</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Filename</source>
+        <target>Имя файла</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Author</source>
+        <target>Автор</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Copyright</source>
+        <target>Копирайт</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created at</source>
+        <target>Создано</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Description</source>
+        <target>Описание</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Asset edition</source>
+        <target>Edition d'un élément</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Path:</source>
+        <target>Путь:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Media upload</source>
+        <target>Загрузить файл</target>
+      </trans-unit>
+      <trans-unit>
+        <source>File:</source>
+        <target>Файл:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Parent folder</source>
+        <target>Родительская папка</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Metadata</source>
+        <target>Метаданные</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Title:</source>
+        <target>Название:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Type</source>
+        <target>Тип</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Search results</source>
+        <target>Результаты поиска</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Back to the list</source>
+        <target>Вернуться к списку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Copyright: %copyright%</source>
+        <target>Копирайт: %copyright%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Author: %author%</source>
+        <target>Автор: %author%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created on %date%</source>
+        <target>Создано %date%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>&lt; Previous page</source>
+        <target>&lt; Предыдущая страница</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Page %number% on %total%</source>
+        <target>Страница %number% из %total%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Next page &gt;</source>
+        <target>Следующая страница &gt;</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Folder statistics</source>
+        <target>Статистика по папке</target>
+      </trans-unit>
+      <trans-unit>
+        <source>[1]One subfolder|(1,+Inf)%nb% subfolders</source>
+        <target>[1]Одна подпапка|(1,+Inf)%nb% подпапок(ки)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>[1]One file, %weight% KiB|(1,+Inf]%nb% files, %weight% KiB</source>
+        <target>[1]Один файл, %weight% КиБ|(1,+Inf]%nb% файл(ов), %weight% КиБ</target>
+      </trans-unit>
+      <trans-unit>
+        <source>See full-size version</source>
+        <target>Посмотреть полноразмерную версию</target>
+      </trans-unit>
+      <trans-unit>
+        <source>%weight% KiB</source>
+        <target>%weight% КиБ</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created on %date%</source>
+        <target>Создан %date%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Rename</source>
+        <target>Переименовать</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Move</source>
+        <target>Переместить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Replace</source>
+        <target>Заменить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Delete</source>
+        <target>Удалить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Are you sure?</source>
+        <target>Вы уверены?</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ok</source>
+        <target>Ок</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The file has been replaced</source>
+        <target>Файл был заменён</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The file has been moved</source>
+        <target>Файл был перемещён</target>
+      </trans-unit>
+      <trans-unit>
+        <source>A problem occurred: The file has not been moved</source>
+        <target>Произошла ошибка: файл не был перемещён</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The file has been renamed</source>
+        <target>Файл был переименован</target>
+      </trans-unit>
+      <trans-unit>
+        <source>A problem occurred: The file has not been renamed</source>
+        <target>Произошла ошибка: файл не был переименован</target>
+      </trans-unit>
+      <trans-unit>
+        <source>A problem occurred during while saving "%file%"</source>
+        <target>Произошла ошибка во время сохранения "%file%"</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Asset "%asset%" not found</source>
+        <target>Файл "%asset%" не найден</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Filetype "%type%" not allowed</source>
+        <target>Тип файлов "%type%" не разрешён</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The target folder "%folder%" already contains an asset named "%name%". The asset has not been moved.</source>
+        <target>Выбранная папка "%folder%" уже содержит файл "%name%". Перемещение не было выполнено.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The filename "%name%" contains incorrect characters. The asset has not be altered.</source>
+        <target>Имя файла "%name%" содержит неправильные символы. Файл не был изменён.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Some or all of the file operations failed. It is possible that the moved asset or its thumbnails are missing.</source>
+        <target>Некоторые операции над файлами завершились с ошибкой. Перемещаемый файл или его превью могли пропасть.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The root folder cannot be moved</source>
+        <target>Корневую папку нельзя переместить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The target folder "%folder%" already contains a folder named "%name%". The folder has not been moved.</source>
+        <target>Выбранная папка "%folder%" уже содержит папку "%name%". Перемещение не было выполнено.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The target folder cannot be a subfolder of moved folder. The folder has not been moved.</source>
+        <target>Выбранная папка не может быть внутри перемещаемой папки. Перемещение не было выполнено.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The parent folder already contains a folder named "%name%". The folder has not been renamed.</source>
+        <target>Родительская папка уже содержит папку "%name%". Переименование не было выполнено.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The target folder name "%name%" contains incorrect characters. The folder has not be renamed.</source>
+        <target>Выбранная папка "%name%" содержит неправильные символы. Переименование не было выполнено.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Impossible to delete folder "%name%"</source>
+        <target>Невозможно удалить папку "%name%"</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Impossible to create folder "%name%"</source>
+        <target>Невозможно создать папку "%name%"</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Mass upload</source>
+        <target>Массовая загрузка</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Mass upload files</source>
+        <target>Массовая загрузка файлов</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Place under:</source>
+        <target>Поместить в:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>File %nb%:</source>
+        <target>Файл %nb%:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Files successfully uploaded</source>
+        <target>Файлы успешно загружены</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Back to the list</source>
+        <target>Вернуться к списку</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Image size:</source>
+        <target>Размер изображения:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Original</source>
+        <target>Оригинал</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Large thumbnail</source>
+        <target>Большое превью</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Small thumbnail</source>
+        <target>Малое превью</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Frame image</source>
+        <target>Кадрировать изображение</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Display description</source>
+        <target>Показать описание</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Image align:</source>
+        <target>Выровнять изображение:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Width (%):</source>
+        <target>Ширина (%):</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Insert</source>
+        <target>Вставить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your modifications have been saved</source>
+        <target>Изменения были сохранены</target>
+      </trans-unit>
+      <trans-unit>
+        <source>save</source>
+        <target>сохранить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Insert Image</source>
+        <target>Вставить изображение</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
