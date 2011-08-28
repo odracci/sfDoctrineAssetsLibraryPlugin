@@ -97,7 +97,7 @@
       </trans-unit>
       <trans-unit>
         <source>Asset edition</source>
-        <target>Edition d'un élément</target>
+        <target>Редактировать элемент</target>
       </trans-unit>
       <trans-unit>
         <source>Path:</source>
