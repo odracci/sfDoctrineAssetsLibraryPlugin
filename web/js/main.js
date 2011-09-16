@@ -32,15 +32,15 @@ sfAssetsLibrary_Engine.prototype = {
 			for (i = 0; i < len; i++) {
 				(function () {
 					// :TODO: use json instead of eval (@link http://json.org/)
-					var rel = ("undefined" !== typeof JSON) ? JSON.parse(asset_input[i].getAttribute('rel')) : eval("(" + asset_input[i].getAttribute('rel') + ")");
+					var rel = ("undefined" !== typeof JSON) ? JSON.parse(asset_input[i].getAttribute('rel')) : eval("(" + asset_input[i].getAttribute('rel') + ")"),
+						fname = asset_input[i].previousSibling.form.name;
 
-					var fname = asset_input.previousSibling.form.name;
-					sfAssetsLibrary.addEvent(asset_input, 'click', function (e) {
+					sfAssetsLibrary.addEvent(asset_input[i], 'click', function (e) {
 						sfAssetsLibrary.openWindow({
-							form_name: fname,
+							form_name:  fname,
 							field_name: rel.name,
-							type: rel.type,
-							url: rel.url,
+							type:       rel.type,
+							url:        rel.url,
 							scrollbars: 'yes'
 						});
 		
