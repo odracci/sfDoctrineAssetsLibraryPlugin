@@ -17,23 +17,24 @@ sfAssetsLibrary_Engine.prototype = {
 			this.url = url;
 		}
 
-    var asset_input = document.getElementById('sf_asset_input_image');
-    if (asset_input) {
-      eval('var rel = ' + asset_input.getAttribute('rel'));
-      var fname = asset_input.previousSibling.form.name;
-      sfAssetsLibrary.addEvent(asset_input, 'click', function(e) {
-        sfAssetsLibrary.openWindow({
-          form_name: fname,
-          field_name: rel.name,
-          type: rel.type,
-          url: rel.url,
-          scrollbars: 'yes'
-        });
-        sfAssetsLibrary.prevDef(e);
-        sfAssetsLibrary.stopProp(e);
-      }, false);
-    }
-  },
+		asset_input = document.getElementById('sf_asset_input_image');
+		if (asset_input) {
+			eval('var rel = ' + asset_input.getAttribute('rel'));
+			var fname = asset_input.previousSibling.form.name;
+			sfAssetsLibrary.addEvent(asset_input, 'click', function (e) {
+				sfAssetsLibrary.openWindow({
+					form_name: fname,
+					field_name: rel.name,
+					type: rel.type,
+					url: rel.url,
+					scrollbars: 'yes'
+				});
+
+				sfAssetsLibrary.prevDef(e);
+				sfAssetsLibrary.stopProp(e);
+			}, false);
+		}
+	},
 
   fileBrowserReturn: function(url, thumbUrl, id)
   {
