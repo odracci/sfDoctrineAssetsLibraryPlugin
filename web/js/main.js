@@ -6,17 +6,14 @@ sfAssetsLibrary_Engine.prototype = {
     this.url = url;
   },
 
-  load: function()
-  {
+  load: function() {
     var asset_url = document.getElementById('sf_asset_js_url');
-    if (asset_url)
-    {
-      var url = asset_url.firstChild.data
+    if (asset_url) {
+      var url = asset_url.firstChild.data;
       this.url = url;
     }
     var asset_input = document.getElementById('sf_asset_input_image');
-    if (asset_input)
-    {
+    if (asset_input) {
       eval('var rel = ' + asset_input.getAttribute('rel'));
       var fname = asset_input.previousSibling.form.name;
       sfAssetsLibrary.addEvent(asset_input, 'click', function(e) {
