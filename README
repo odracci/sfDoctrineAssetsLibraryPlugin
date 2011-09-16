@@ -314,7 +314,7 @@ for that purpose, the `sfWidgetFormAssetInput`. Use is just like a regular widge
     {
       $this->widgetSchema['asset_id'] = new sfWidgetFormAssetInput();
       // usually you don't need to define validator, it should be already defined in generated form
-      $this->validatorSchema['asset_id'] = new sfValidatorPropelChoice('model' => 'sfAsset');
+      $this->validatorSchema['asset_id'] = new sfValidatorDoctrineChoice(array('model' => 'sfAsset'));
     }
 
 If not in admin generator, remember to use `use_javascripts_for_form($form)` in your form's template.
