@@ -31,9 +31,10 @@ sfAssetsLibrary_Engine.prototype = {
 			
 			for (i = 0; i < len; i++) {
 				(function () {
+					// :TODO: use json instead of eval (@link http://json.org/)
+					var rel = ("undefined" !== typeof JSON) ? JSON.parse(asset_input[i].getAttribute('rel')) : eval("(" + asset_input[i].getAttribute('rel') + ")");
 
 					if (asset_input) {
-						eval('var rel = ' + asset_input.getAttribute('rel'));
 						var fname = asset_input.previousSibling.form.name;
 						sfAssetsLibrary.addEvent(asset_input, 'click', function (e) {
 							sfAssetsLibrary.openWindow({
