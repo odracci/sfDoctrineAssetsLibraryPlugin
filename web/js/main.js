@@ -32,22 +32,22 @@ sfAssetsLibrary_Engine.prototype = {
 			for (i = 0; i < len; i++) {
 				(function () {
 
-		if (asset_input) {
-			eval('var rel = ' + asset_input.getAttribute('rel'));
-			var fname = asset_input.previousSibling.form.name;
-			sfAssetsLibrary.addEvent(asset_input, 'click', function (e) {
-				sfAssetsLibrary.openWindow({
-					form_name: fname,
-					field_name: rel.name,
-					type: rel.type,
-					url: rel.url,
-					scrollbars: 'yes'
-				});
-
-				sfAssetsLibrary.prevDef(e);
-				sfAssetsLibrary.stopProp(e);
-			}, false);
-		}
+					if (asset_input) {
+						eval('var rel = ' + asset_input.getAttribute('rel'));
+						var fname = asset_input.previousSibling.form.name;
+						sfAssetsLibrary.addEvent(asset_input, 'click', function (e) {
+							sfAssetsLibrary.openWindow({
+								form_name: fname,
+								field_name: rel.name,
+								type: rel.type,
+								url: rel.url,
+								scrollbars: 'yes'
+							});
+			
+							sfAssetsLibrary.prevDef(e);
+							sfAssetsLibrary.stopProp(e);
+						}, false);
+					}
 
 				})();
 			}
