@@ -6,32 +6,52 @@ sfAssetsLibrary_Engine.prototype = {
     this.url = url;
   },
 
-  load: function()
-  {
-    var asset_url = document.getElementById('sf_asset_js_url');
-    if (asset_url)
-    {
-      var url = asset_url.firstChild.data
-      this.url = url;
-    }
-    var asset_input = document.getElementById('sf_asset_input_image');
-    if (asset_input)
-    {
-      eval('var rel = ' + asset_input.getAttribute('rel'));
-      var fname = asset_input.previousSibling.form.name;
-      sfAssetsLibrary.addEvent(asset_input, 'click', function(e) {
-        sfAssetsLibrary.openWindow({
-          form_name: fname,
-          field_name: rel.name,
-          type: rel.type,
-          url: rel.url,
-          scrollbars: 'yes'
-        });
-        sfAssetsLibrary.prevDef(e);
-        sfAssetsLibrary.stopProp(e);
-      }, false);
-    }
-  },
+	load: function () {
+		"use strict";
+		var asset_url = document.getElementById('sf_asset_js_url'),
+			asset_input = null,
+			url, len, i;
+
+		if (asset_url) {
+			url = asset_url.firstChild.data;
+			this.url = url;
+		}
+
+		if ("undefined" !== typeof jQuery) {
+			asset_input = jQuery("a.sf_asset_input_image");
+		} else if (document.querySelectorAll) {
+			asset_input = document.querySelectorAll(".sf_asset_input_image");
+		} else {
+			// Create array.
+			asset_input = [document.getElementById('sf_asset_input_image')];
+		}
+
+		if (asset_input && asset_input.length > 0) {
+			len = asset_input.length;
+			
+			for (i = 0; i < len; i++) {
+				(function () {
+					// :TODO: use json instead of eval (@link http://json.org/)
+					var rel = ("undefined" !== typeof JSON) ? JSON.parse(asset_input[i].getAttribute('rel')) : eval("(" + asset_input[i].getAttribute('rel') + ")"),
+						fname = asset_input[i].previousSibling.form.name;
+
+					sfAssetsLibrary.addEvent(asset_input[i], 'click', function (e) {
+						sfAssetsLibrary.openWindow({
+							form_name:  fname,
+							field_name: rel.name,
+							type:       rel.type,
+							url:        rel.url,
+							scrollbars: 'yes'
+						});
+		
+						sfAssetsLibrary.prevDef(e);
+						sfAssetsLibrary.stopProp(e);
+					}, false);
+
+				})();
+			}
+		}
+	},
 
   fileBrowserReturn: function(url, thumbUrl, id)
   {

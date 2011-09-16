@@ -502,7 +502,7 @@ ul.sf_admin_actions li.sf_admin_action_list
 
 #sf_asset_container .sf_admin_action_save_and_add
 {
-  background: url/sf/sf_admin/images/save.png) no-repeat 3px 2px;
+  background: url(/sf/sf_admin/images/save.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
