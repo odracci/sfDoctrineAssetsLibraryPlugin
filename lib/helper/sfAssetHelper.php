@@ -201,8 +201,8 @@ function input_sf_asset_image_tag($name, $value = null, $options = array())
 {
   $url = str_replace('&', '&amp;', url_for('@sf_asset_library_list?dir=' . sfConfig::get('app_sfAssetsLibrary_upload_dir', 'media') . '&popup=2'));
   $asset = empty($value) ? new sfAsset : sfAssetTable::getInstance()->find($value);
-  
-  return '<a id="sf_asset_input_image" href="#" rel="{url: \'' . $url . '\', name: \'' . $name . '\', type: \'' . $options['type'] . '\'}">' .
+
+  return '<a id="sf_asset_input_image" class="sf_asset_input_image" href="#" rel="{url: \'' . $url . '\', name: \'' . $name . '\', type: \'' . $options['type'] . '\'}">' .
     image_tag('/sfDoctrineAssetsLibraryPlugin/images/folder_open', array('alt' => 'Insert Image', 'title' => __('Insert Image', null, 'sfAsset'))) . '</a> ' .
     asset_image_tag($asset, 'small', array('id' => $options['id'] . '_img'));
 }

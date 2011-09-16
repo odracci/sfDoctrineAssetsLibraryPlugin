@@ -17,7 +17,21 @@ sfAssetsLibrary_Engine.prototype = {
 			this.url = url;
 		}
 
-		asset_input = document.getElementById('sf_asset_input_image');
+		if ("undefined" !== typeof jQuery) {
+			asset_input = jQuery("a.sf_asset_input_image");
+		} else if (document.querySelectorAll) {
+			asset_input = document.querySelectorAll(".sf_asset_input_image");
+		} else {
+			// Create array.
+			asset_input = [document.getElementById('sf_asset_input_image')];
+		}
+
+		if (asset_input && asset_input.length > 0) {
+			len = asset_input.length;
+			
+			for (i = 0; i < len; i++) {
+				(function () {
+
 		if (asset_input) {
 			eval('var rel = ' + asset_input.getAttribute('rel'));
 			var fname = asset_input.previousSibling.form.name;
@@ -33,6 +47,10 @@ sfAssetsLibrary_Engine.prototype = {
 				sfAssetsLibrary.prevDef(e);
 				sfAssetsLibrary.stopProp(e);
 			}, false);
+		}
+
+				})();
+			}
 		}
 	},
 
