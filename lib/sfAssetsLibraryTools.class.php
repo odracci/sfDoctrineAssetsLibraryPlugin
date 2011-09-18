@@ -145,7 +145,7 @@ class sfAssetsLibraryTools
       }
     }
 
-    if (!$dirName)
+    if ('' === $dirName)
     {
       throw new sfException('Trying to make a folder with no name');
     }
